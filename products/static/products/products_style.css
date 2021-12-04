@@ -1,3 +1,10 @@
+.description__upd{
+    background: #f4f4f4;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-radius: 20px;
+}
+
 .big-bold__upd{
     color:  #e53935;
 	font-size: 36px;
