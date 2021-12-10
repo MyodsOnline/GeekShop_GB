@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-	Товары
+	{{ title }}
 {% endblock %}
 {% block css %}
 	<link rel="stylesheet" href="{% static 'products/products_style.css' %}">
@@ -17,11 +17,9 @@
 		<div class="details">
 			<div class="links clearfix">
 				<ul class="links-menu">
-					<li><a href="#" class="active">все</a></li>
-					<li><a href="#">дом</a></li>
-					<li><a href="#">офис</a></li>
-					<li><a href="#">модерн</a></li>
-					<li><a href="#">классика</a></li>
+					{% for link in links_menu %}
+					<li><a href="{{link.href}}">{{ link.name }}</a></li>
+					{% endfor %}
 				</ul>
 			</div>
 
