@@ -14,3 +14,9 @@
 	line-height: 36px;
 }
 
+.links_json {
+	height: 70px;
+	background-color: #b5b2b2;
+	position: relative;
+	padding-left: 360px;
+}
