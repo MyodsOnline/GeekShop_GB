@@ -27,33 +27,17 @@
 			<div class="clearfix">
 			</div>
 			<div class="tab-content">
+				{% for product in products_list %}
 				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-1.jpg' %}" alt="">
+					<a href="#"><img src="/media/{{ product.image }}" alt="" width="270px" height="270px">
 						<div class="text">
 							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
-							<h4>Отличный стул</h4>
-							<p>Расположитесь комфортно. </p>
+							<h4>{{ product.name }}</h4>
+							<p>{{ product.short_description }}</p>
 						</div> 
 					</a>
 				</div>
-				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-3.jpg' %}" alt="">
-						<div class="text">
-							<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-							<h4>Супер стул</h4>
-							<p>Расположитесь комфортно. </p>
-						</div>
-					</a>
-				</div>
-				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-2.jpg' %}" alt="">
-						<div class="text">
-							<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="">
-							<h4>Стул повышенного качества</h4>
-							<p>Не оторваться. </p>
-						</div>
-					</a>
-				</div>	
+				{% endfor %}
 			</div>
 		</div>
 {% endblock %}

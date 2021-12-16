@@ -29,8 +29,8 @@ class Product(models.Model):
 
     class Meta:
         verbose_name = 'Товар'
-        verbose_name_plural = 'Товара'
+        verbose_name_plural = 'Товары'
         ordering = ['-updated_at']
 
     def __str__(self):
-        return f'{self.name} | {self.category.name}'
+        return self.name
