@@ -1,8 +1,9 @@
 
-    <a href="{% url 'home' %}" class="logo"></a>
+    <a href="{% url 'mainapp:home' %}" class="logo"></a>
     <ul class="menu">
-        <li><a href="{% url 'home' %}">домой</a></li>
-        <li><a href="{% url 'products' %}">продукты</a></li>
-        <li><a href="{% url 'contacts' %}">контакты</a></li>
+        <li><a href="{% url 'mainapp:home' %}">домой</a></li>
+        <li><a href="{% url 'products:products' %}">продукты</a></li>
+        <li><a href="{% url 'mainapp:contacts' %}">контакты</a></li>
+        <li><a href="{% url 'auth:test' %}">юзер</a></li>
     </ul>
     <a href="#" class="search"></a>
