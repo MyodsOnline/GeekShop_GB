@@ -4,6 +4,12 @@
         <li><a href="{% url 'mainapp:home' %}">домой</a></li>
         <li><a href="{% url 'products:products' %}">продукты</a></li>
         <li><a href="{% url 'mainapp:contacts' %}">контакты</a></li>
-        <li><a href="/">юзер</a></li>
+        <li>
+        {% if user.is_authenticated %}
+            <a href="{% url 'auth:logout' %}">выйти</a>
+        {% else %}
+            <a href="{% url 'auth:login' %}">войти</a>
+        {% endif %}
+        </li>
     </ul>
     <a href="#" class="search"></a>
