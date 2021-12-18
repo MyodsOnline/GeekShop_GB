@@ -1,6 +1,7 @@
 {% extends 'authapp/base.html' %}
 
 {% block title %} {{ title }} {% endblock %}
+{% block greeting %} {{ greeting }} {% endblock %}
 {% block content %}
 <form class="form" action="{% url 'auth:login' %}" method="POST">
     {% csrf_token %}

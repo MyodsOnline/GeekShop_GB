@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="login w-25 position-relative mx-auto">
-            <h2>Вход в систему</h2>
+            <h2>{% block greeting %}{% endblock %}</h2>
             {% block content %} {% endblock %}
         </div>
     </div>
