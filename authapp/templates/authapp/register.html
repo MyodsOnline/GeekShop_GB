@@ -1,18 +1,21 @@
 {% extends 'authapp/base.html' %}
 {% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
 {% block forms %}
 <div class="main_container">
     <div id="wrapper">
         <div id="register" class="animate form">
-            <form  action="{% url 'auth:register' %}" autocomplete="on" method="post" >
+            <form  action="{% url 'auth:register' %}" method="post" >
                 {% csrf_token %}
-                {{ form.non_filed.errors }}
+                {{ register_form.non_filed.errors }}
                 <h1>GeekShop</h1> 
                 <p> 
                     <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label>
                     {{ register_form.username }}
                 </p>
-                <p> 
+                <p>
                     <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label>
                     {{ register_form.email }}
                 </p>
@@ -44,4 +47,13 @@
         </div>
     </div>
 </div>
+{% if register_form.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert"
+         style="margin-top: 50px;">
+        {{ register_form.errors|escape }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
 {% endblock %}

@@ -39,6 +39,8 @@ def register(request):
         if register_form.is_valid():
             register_form.save()
             return HttpResponseRedirect(reverse('auth:login'))
+        else:
+            print('EEEEERRRRRRRRRROOOOOORRRRRR')
     else:
         register_form = ShopUserRegisterForm()
 
