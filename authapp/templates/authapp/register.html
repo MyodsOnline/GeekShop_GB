@@ -4,33 +4,33 @@
 <div class="main_container">
     <div id="wrapper">
         <div id="register" class="animate form">
-            <form  action="{% url 'auth:register' %}" autocomplete="on" method="post">
+            <form  action="{% url 'auth:register' %}" autocomplete="on" method="post" >
                 {% csrf_token %}
                 {{ form.non_filed.errors }}
                 <h1>GeekShop</h1> 
                 <p> 
-                    <label for="usernamesignup" class="uname" data-icon="u">Логин</label>
-                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label>
+                    {{ register_form.username }}
                 </p>
                 <p> 
-                    <label for="emailsignup" class="youmail" data-icon="e" >Электронная почта</label>
-                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                    <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label>
+                    {{ register_form.email }}
                 </p>
                 <p> 
-                    <label for="passwordsignup" class="youpasswd" data-icon="p">Пароль</label>
-                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                    <label for="{{ form.password1.id_for_label }}" class="youpasswd" data-icon="p">Пароль</label>
+                    {{ register_form.password1 }}
                 </p>
                 <p> 
-                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Подтверждение пароля</label>
-                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                    <label for="{{ form.password2.id_for_label }}" class="youpasswd" data-icon="p">Подтверждение пароля</label>
+                    {{ register_form.password2 }}
                 </p>
                 <p> 
-                    <label for="avatar" class="youpasswd" data-icon="u">Аватар</label>
-                    <input id="avatar" name="avatar" type="file" placeholder="eg. X8df!90EO"/>
+                    <label for="{{ form.avatar.id_for_label }}" class="youpasswd" data-icon="u">Аватар</label>
+                    {{ register_form.avatar }}
                 </p>
                 <p class="keeplogin"> 
-                    <input type="checkbox" name="ageconfirm" id="ageconfirm"> 
-                    <label for="ageconfirm">Мне есть 18!</label>
+                    {{ register_form.age }}
+                    <label for="{{ form.age.id_for_label }}">Мне есть 18!</label>
                 </p>
                 <p class="signin button"> 
                     <input type="submit" value="Регистрация"/> 
