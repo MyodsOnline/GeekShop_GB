@@ -34,4 +34,4 @@ class Command(BaseCommand):
             new_product = Product(**product)
             new_product.save()
 
-        User.objects.create_superuser('admin', "admin@geekshop.ru", '123', age=30)
+        User.objects.create_superuser('admin', "admin@geekshop.ru", '123', age=True)

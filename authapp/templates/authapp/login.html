@@ -1,13 +1,34 @@
 {% extends 'authapp/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-{% block greeting %} {{ greeting }} {% endblock %}
-{% block content %}
-<form class="form" action="{% url 'auth:login' %}" method="POST">
-    {% csrf_token %}
-    {{ login_form.as_p }}
-    <br>
-    <input class="form-control" type="submit" value="Войти">
-</form>
-<a href="{% url 'auth:register' %}">Зарегистрироваться</a>
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper">
+        <div id="login" class="animate form">
+            <form action="{% url 'auth:login' %}" autocomplete="off" method="post">
+                {% csrf_token %}
+                {{ form.non_filed.errors }}
+                <h1>GeekShop</h1>
+                <p> 
+                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u" > Имя пользователя </label>
+                    {{ login_form.username }}
+                </p>
+                <p> 
+                    <label for="{{ form.password.id_for_label }}" class="youpasswd" data-icon="p"> Пароль </label>
+                    {{ login_form.password }}
+                </p>
+                <p class="login button"> 
+                    <input type="submit" value="Войти" /> 
+                </p>
+                <p class="change_link">
+                    Не зарегистрированы ?
+                    <a href="{% url 'auth:register' %}" class="to_register">Регистрация</a>
+                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

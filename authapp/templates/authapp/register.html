@@ -1,13 +1,47 @@
 {% extends 'authapp/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-{% block greeting %} {{ greeting }} {% endblock %}
-{% block content %}
-<form class="form-horizontal" action="{% url 'auth:register' %}" method="post">
-    {% csrf_token %}
-    {{ register_form.as_p }}
-    <br>
-    <input class="form-control" type="submit" value="зарегистрироваться">
-</form>
-<a href="{% url 'mainapp:home' %}">Отмена</a>
+{% load static %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper">
+        <div id="register" class="animate form">
+            <form  action="{% url 'auth:register' %}" autocomplete="on" method="post">
+                {% csrf_token %}
+                {{ form.non_filed.errors }}
+                <h1>GeekShop</h1> 
+                <p> 
+                    <label for="usernamesignup" class="uname" data-icon="u">Логин</label>
+                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                </p>
+                <p> 
+                    <label for="emailsignup" class="youmail" data-icon="e" >Электронная почта</label>
+                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                </p>
+                <p> 
+                    <label for="passwordsignup" class="youpasswd" data-icon="p">Пароль</label>
+                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                </p>
+                <p> 
+                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Подтверждение пароля</label>
+                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                </p>
+                <p> 
+                    <label for="avatar" class="youpasswd" data-icon="u">Аватар</label>
+                    <input id="avatar" name="avatar" type="file" placeholder="eg. X8df!90EO"/>
+                </p>
+                <p class="keeplogin"> 
+                    <input type="checkbox" name="ageconfirm" id="ageconfirm"> 
+                    <label for="ageconfirm">Мне есть 18!</label>
+                </p>
+                <p class="signin button"> 
+                    <input type="submit" value="Регистрация"/> 
+                </p>
+                <p class="change_link">  
+                    Есть логин?
+                    <a href="{% url 'auth:login' %}" class="to_register">Войти</a>
+                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
