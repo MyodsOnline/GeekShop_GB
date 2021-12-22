@@ -32,13 +32,17 @@ class ShopUserRegisterForm(UserCreationForm):
     #     return data
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class ShopUserEditForm(UserChangeForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit', 'readonly': True}))
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control-edit'}))
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}), required=False)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}), required=False)
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-edit'}), required=False)
-    birth_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control-edit'}), required=False)
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'form-control-edit'}), required=False)
 
     class Meta:
         model = ShopUser
