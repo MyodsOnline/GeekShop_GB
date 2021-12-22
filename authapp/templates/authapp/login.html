@@ -31,4 +31,9 @@
         </div>
     </div>
 </div>
+            {% if login_form.errors %}
+                {% for error in login_form.non_field_errors %}
+                    <p class="errors">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
 {% endblock %}

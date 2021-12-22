@@ -179,7 +179,7 @@ input {
     top: 35px;
 	width: 30px;
 }
-.errorlist_block{
+.errorlist_block, .errors{
 	display: block;
 	position: absolute;
 	top: 20px;

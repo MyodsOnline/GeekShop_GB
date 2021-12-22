@@ -55,20 +55,12 @@
                         </p>
                     </div>
                 </div>
-                <p class="change_link editform"> 
-                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                <p class="change_link editform">
+                    {% if messages %} {% for message in messages %} <b>{{ message }}</b> {% endfor %} {% endif %}
+                    <a href="{% url 'mainapp:home' %}" class="to_main">На главную</a>
                 </p>
             </form>
         </div>
     </div>
 </div>
-{% if register_form.errors %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert"
-         style="margin-top: 50px;">
-        {{ register_form.errors|escape }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-{% endif %}
 {% endblock %}
