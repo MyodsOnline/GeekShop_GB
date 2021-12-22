@@ -15,13 +15,14 @@
 		</div>
 
 		<div class="details">
-			<div class="links clearfix">
-				<ul class="links-menu">
+			<div class="links_upd">
+				<ul class="links-menu_upd">
 					{% for link in links_menu %}
 					<li><a href="{{link.href}}">{{ link.name }}</a></li>
 					{% endfor %}
 				</ul>
 			</div>
+{% comment json.categories %}
 			<div class="links_json clearfix">
 				<ul class="links-menu">
 					{% for link_json in products_json %}
@@ -29,7 +30,7 @@
 					{% endfor %}
 				</ul>
 			</div>
-
+{% endcomment %}
 			<div class="details-products">
 				<div class="details-slider">
 					<div class="slider-product">
@@ -72,40 +73,47 @@
 				</div>
 			</div>
 
-			<div class="related">
-				<div class="title clearfix">
-					<h2>Похожие продукты</h2>
-					<a class="explore" href="#">показать все <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+			<div class="related_upd">
+				{% if category.name|title %}
+				<div class="title_upd">
+					<h2>Категория: {{ category }}</h2>
+					<a class="explore_upd" href="#">показать все ></a>
 				</div>
-				<div class="related-products clearfix">
+				{% endif %}
+				<div class="related-products_upd">
+					{% for product in products %}
 					<div class="block">
-						<a href="#"><img src="{% static 'mainapp/img/product-11.jpg' %}" alt="">
+						<a href="#"><img src="../media/{{ product.image }}" alt="">
 							<div class="text">
 								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-								<h4>Стул повышенного качества</h4>
-								<p>Не оторваться. </p>
+								<h4>{{ product.name }}</h4>
+								<p>{{ product.short_description }}</p>
 							</div>
 						</a>
 					</div>
-					<div class="block">
-						<a href="#"><img src="{% static 'mainapp/img/product-21.jpg' %}" alt="">
-							<div class="text">
-								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-								<h4>Стул повышенного качества</h4>
-								<p>Не оторваться. </p>
-							</div>
-						</a>
-					</div>
-					<div class="block">
-						<a href="#"><img src="{% static 'mainapp/img/product-31.jpg' %}" alt="">
-							<div class="text">
-								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-								<h4>Стул повышенного качества</h4>
-								<p>Не оторваться. </p>
-							</div>
-						</a>
-					</div>
+					{% endfor %}
+				</div>
+			</div>
 
+
+
+			<div class="related_upd">
+				<div class="title_upd">
+					<h2>Похожие продукты:</h2>
+					<a class="explore_upd" href="#">показать все ></a>
+				</div>
+				<div class="related-products_upd">
+					{% for product in same_products %}
+					<div class="block">
+						<a href="#"><img src="../media/{{ product.image }}" alt="" width="368px">
+							<div class="text">
+								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
+								<h4>{{ product.name }}</h4>
+								<p>{{ product.short_description }}</p>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
