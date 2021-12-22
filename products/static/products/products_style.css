@@ -42,15 +42,20 @@
 .explore_upd:hover{
 	color:  #302727;
 }
+
 .related_upd {
 	padding: 0px 100px;
+}
+.same_products{
+	background-color: #cfcfcf;
+	padding-bottom: 30px;
 }
 .title_upd {
 	display: flex;
 	justify-content: space-between;
-	height: 200px;
+	height: 50px;
 	align-items: flex-end;
-	margin-bottom: 30px;
+	padding: 30px 0;
 }
 .title_upd h2{
 	font-size: 36px;
@@ -67,13 +72,17 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 50px;
+	flex-wrap: wrap;
 }
 .related-products_upd .block a img {
 	float: left;
 }
+.details-products_upd{
+	display: none;
+}
 .related-products_upd .block {
 	float: left;
-	margin-right: 30px;
+	margin: 0 10px 20px;
 	display: block;
 	height: 370px;
 	width: 370px;

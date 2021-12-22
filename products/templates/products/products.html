@@ -17,8 +17,9 @@
 		<div class="details">
 			<div class="links_upd">
 				<ul class="links-menu_upd">
+					<li><a href="{% url 'products:products' %}">ВСЕ</a></li>
 					{% for link in links_menu %}
-					<li><a href="{{link.href}}">{{ link.name }}</a></li>
+					<li><a href="{% url 'products:category' link.id %}">{{ link.name }}</a></li>
 					{% endfor %}
 				</ul>
 			</div>
@@ -31,7 +32,7 @@
 				</ul>
 			</div>
 {% endcomment %}
-			<div class="details-products">
+			<div class="details-products_upd">
 				<div class="details-slider">
 					<div class="slider-product">
 						<img src="{% static 'mainapp/img/slider1.jpg' %}">
@@ -73,43 +74,46 @@
 				</div>
 			</div>
 
+			{% if category %}
 			<div class="related_upd">
-				{% if category.name|title %}
 				<div class="title_upd">
-					<h2>Категория: {{ category }}</h2>
-					<a class="explore_upd" href="#">показать все ></a>
+					<h2>Категория: {{ category.name|title }}</h2>
 				</div>
-				{% endif %}
+				
 				<div class="related-products_upd">
 					{% for product in products %}
 					<div class="block">
-						<a href="#"><img src="../media/{{ product.image }}" alt="">
+						<a href="#"><img src="{{ product.image.url }}" alt="" width="368px">
 							<div class="text">
 								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
 								<h4>{{ product.name }}</h4>
 								<p>{{ product.short_description }}</p>
+								<p>{{ product.price }} ₽</p>
 							</div>
 						</a>
 					</div>
 					{% endfor %}
 				</div>
 			</div>
+			{% endif %}
 
-
-
-			<div class="related_upd">
+			<div class="related_upd same_products">
 				<div class="title_upd">
-					<h2>Похожие продукты:</h2>
+					<h2>{% if category %}Похожие товары:
+						{% else %} Все товары:
+						{% endif %}
+					</h2>
 					<a class="explore_upd" href="#">показать все ></a>
 				</div>
 				<div class="related-products_upd">
 					{% for product in same_products %}
 					<div class="block">
-						<a href="#"><img src="../media/{{ product.image }}" alt="" width="368px">
+						<a href="#"><img src="{{ product.image.url }}" alt="" width="368px">
 							<div class="text">
 								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
 								<h4>{{ product.name }}</h4>
 								<p>{{ product.short_description }}</p>
+								<p>{{ product.price }} ₽</p>
 							</div>
 						</a>
 					</div>
