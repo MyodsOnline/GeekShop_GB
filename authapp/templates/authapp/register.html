@@ -7,28 +7,28 @@
 <div class="main_container">
     <div id="wrapper">
         <div id="register" class="animate form">
-            <form  action="{% url 'auth:register' %}" method="post" >
+            <form  action="{% url 'auth:register' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ register_form.non_filed.errors }}
                 <h1>GeekShop</h1> 
                 <p> 
-                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label>
+                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label><br>
                     {{ register_form.username }}
                 </p>
                 <p>
-                    <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label>
+                    <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label><br>
                     {{ register_form.email }}
                 </p>
                 <p> 
-                    <label for="{{ form.password1.id_for_label }}" class="youpasswd" data-icon="p">Пароль</label>
+                    <label for="{{ form.password1.id_for_label }}" class="youpasswd" data-icon="p">Пароль</label><br>
                     {{ register_form.password1 }}
                 </p>
                 <p> 
-                    <label for="{{ form.password2.id_for_label }}" class="youpasswd" data-icon="p">Подтверждение пароля</label>
+                    <label for="{{ form.password2.id_for_label }}" class="youpasswd" data-icon="p">Подтверждение пароля</label><br>
                     {{ register_form.password2 }}
                 </p>
                 <p> 
-                    <label for="{{ form.avatar.id_for_label }}" class="youpasswd" data-icon="u">Аватар</label>
+                    <label for="{{ form.avatar.id_for_label }}" class="youpasswd" data-icon="u">Аватар</label><br>
                     {{ register_form.avatar }}
                 </p>
                 <p class="keeplogin"> 
@@ -48,12 +48,8 @@
     </div>
 </div>
 {% if register_form.errors %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert"
-         style="margin-top: 50px;">
+    <div class="errorlist_block">
         {{ register_form.errors|escape }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
     </div>
 {% endif %}
 {% endblock %}

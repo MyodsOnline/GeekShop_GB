@@ -33,14 +33,21 @@ class ShopUserRegisterForm(UserCreationForm):
 
 
 class ShopUserEditForm(UserChangeForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit', 'readonly': True}))
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control-edit'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}), required=False)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}), required=False)
+    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-edit'}), required=False)
+    birth_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control-edit'}), required=False)
+
     class Meta:
         model = ShopUser
-        fields = ('username', 'first_name', 'email', 'age', 'avatar', 'password')
+        fields = ('username', 'first_name', 'last_name', 'email', 'age', 'avatar', 'birth_date', 'promo_accept')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''
-            if field_name == 'password':
-                field.widget = forms.HiddenInput()
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     for field_name, field in self.fields.items():
+    #         field.widget.attrs['class'] = 'form-control-edit'
+    #         field.help_text = ''
+    #         if field_name == 'password':
+    #             field.widget = forms.HiddenInput()

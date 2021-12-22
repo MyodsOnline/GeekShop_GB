@@ -1,0 +1,74 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper" class="editform">
+        <div id="register" class="animate form">
+            <form action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_filed.errors }}
+                <h1>GeekShop</h1> 
+                <div class="edit_row">
+                    <div class="edit_col">
+                        <p> 
+                            <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label><br>
+                            {{ edit_form.username }}
+                        </p>
+                        <p> 
+                            <label for="{{ form.last_name.id_for_label }}" class="uname" data-icon="u">Имя</label><br>
+                            {{ edit_form.first_name }}
+                        </p>
+                        <p> 
+                            <label for="{{ form.last_name.id_for_label }}" class="uname" data-icon="u">Фамилия</label><br>
+                            {{ edit_form.last_name }}
+                        </p>
+                        <p>
+                            <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label><br>
+                            {{ edit_form.email }}
+                        </p>
+                        <p>
+                            <label for="{{ form.birth_date.id_for_label }}" class="youmail" data-icon="u" >День рождения</label><br>
+                            {{ edit_form.birth_date }}
+                        </p>
+                    </div>
+                    <div class="edit_col">
+                        <div class="user_avatar">
+                            <img src="/media/{{ user.avatar|default:"avatar.png" }}" class="w-50">
+                        </div>
+                        <p>
+                            <label for="{{ form.first_name.id_for_label }}">Изменить аватар</label><br>
+                            {{ edit_form.avatar }}
+                        </p>
+                        <p class="keeplogin">
+                            {{ edit_form.age }}
+                            <label for="{{ form.age.id_for_label }}">Мне есть 18!</label><br>
+                        </p>
+                        <p class="keeplogin">
+                            {{ edit_form.promo_accept }}
+                            <label for="{{ form.promo_accept.id_for_label }}">Согласен на проморассылку!</label><br>
+                        </p>
+                        <p class="signin button"> 
+                            <input type="submit" value="Обновить"/>
+                        </p>
+                    </div>
+                </div>
+                <p class="change_link editform"> 
+                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% if register_form.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert"
+         style="margin-top: 50px;">
+        {{ register_form.errors|escape }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+{% endblock %}
