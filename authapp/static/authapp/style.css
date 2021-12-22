@@ -179,7 +179,7 @@ input {
     top: 35px;
 	width: 30px;
 }
-.errorlist_block, .errors{
+.errorlist_block, .errors, .success{
 	display: block;
 	position: absolute;
 	top: 20px;
@@ -187,6 +187,9 @@ input {
 	width: 300px;
 	background: rgba(244, 147, 179, 0.56);
 	padding: 5px 5px 5px 20px;
+}
+.success{
+    background: rgba(144, 47, 179, 0.56);
 }
 /*styling both submit buttons */
 #wrapper p.button input{

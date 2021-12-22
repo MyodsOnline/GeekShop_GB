@@ -38,6 +38,7 @@ def register(request):
 
         if register_form.is_valid():
             register_form.save()
+            messages.success(request, 'Вы успешно зарегистрированы!')
             return HttpResponseRedirect(reverse('auth:login'))
 
     else:
