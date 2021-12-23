@@ -81,7 +81,7 @@
 				<div class="related-products_upd">
 					{% for product in products %}
 					<div class="block">
-						<a href="#"><img src="{{ product.image.url }}" alt="" width="368px">
+						<a href="{% url 'basket:add' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="368px">
 							<div class="text">
 								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
 								<h4>{{ product.name }}</h4>
@@ -107,7 +107,7 @@
 				<div class="tab-content_upd">
 				{% for product in same_products %}
 				<div class="block">
-					<a href="#"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
+					<a href="{% url 'basket:add' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
 						<div class="text">
 							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
 							<h4>{{ product.name }}</h4>
