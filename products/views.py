@@ -16,17 +16,14 @@ def products(request, pk=None):
     same_products = Product.objects.all()
 
     if pk is not None:
-        if pk == 0:
-            products = Product.objects.all().order_by('price')
-            category = {'name': 'все'}
-        else:
-            category = get_object_or_404(ProductCategory, pk=pk)
-            products = Product.objects.filter(category__pk=pk).order_by('price')
 
-            same_list = random.sample([x for x in range(1, len(Product.objects.all())+1)], 3)
-            same_products = []
-            for i in same_list:
-                same_products.append(Product.objects.get(pk=i))
+        category = get_object_or_404(ProductCategory, pk=pk)
+        products = Product.objects.filter(category__pk=pk).order_by('price')
+
+        same_list = random.sample([x for x in range(1, len(Product.objects.all())+1)], 4)
+        same_products = []
+        for i in same_list:
+            same_products.append(Product.objects.get(pk=i))
 
         context = {
             'title': title,

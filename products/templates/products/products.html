@@ -17,21 +17,19 @@
 		<div class="details">
 			<div class="links_upd">
 				<ul class="links-menu_upd">
-					<li><a href="{% url 'products:products' %}">ВСЕ</a></li>
+					<li>
+						<a href="{% url 'products:products' %}"
+						   class="{% if request.resolver_match.kwargs.pk is None %}active_upd{% endif %}">ВСЕ</a>
+					</li>
 					{% for link in links_menu %}
-					<li><a href="{% url 'products:category' link.id %}">{{ link.name }}</a></li>
+					<li>
+						<a href="{% url 'products:category' link.id %}"
+						   class="{% if request.resolver_match.kwargs.pk == link.pk %}active_upd{% endif %}">{{ link.name }}
+						</a>
+					</li>
 					{% endfor %}
 				</ul>
 			</div>
-{% comment json.categories %}
-			<div class="links_json clearfix">
-				<ul class="links-menu">
-					{% for link_json in products_json %}
-					<li><a href="{{link_json.href}}">{{ link_json.name }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-{% endcomment %}
 			<div class="details-products_upd">
 				<div class="details-slider">
 					<div class="slider-product">
@@ -99,26 +97,26 @@
 
 			<div class="related_upd same_products">
 				<div class="title_upd">
-					<h2>{% if category %}Похожие товары:
-						{% else %} Все товары:
-						{% endif %}
-					</h2>
-					<a class="explore_upd" href="#">показать все ></a>
+					{% if category %}
+					<h2>Похожие товары:</h2>
+					<a class="explore_upd" href="{% url 'products:products' %}">показать все ></a>
+					{% else %}
+					<h2>Все товары:</h2>
+					{% endif %}
 				</div>
-				<div class="related-products_upd">
-					{% for product in same_products %}
-					<div class="block">
-						<a href="#"><img src="{{ product.image.url }}" alt="" width="368px">
-							<div class="text">
-								<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-								<h4>{{ product.name }}</h4>
-								<p>{{ product.short_description }}</p>
-								<p>{{ product.price }} ₽</p>
-							</div>
-						</a>
-					</div>
-					{% endfor %}
+				<div class="tab-content_upd">
+				{% for product in same_products %}
+				<div class="block">
+					<a href="#"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
+						<div class="text">
+							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
+							<h4>{{ product.name }}</h4>
+							<p>{{ product.short_description }}</p>
+						</div>
+					</a>
 				</div>
+				{% endfor %}
+			</div>
 			</div>
 		</div>
 {% endblock %}
