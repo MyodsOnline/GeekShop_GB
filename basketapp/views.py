@@ -6,7 +6,12 @@ from products.models import Product
 
 
 def basket(request):
-    context = {}
+    title = 'title'
+    basket_items = Basket.objects.filter(user=request.user).order_by('product__category')
+    context = {
+        'title': title,
+        'basket_items': basket_items,
+    }
     return render(request, 'basketapp/basket.html', context)
 
 
@@ -23,7 +28,8 @@ def basket_add(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def basket_remove(request):
-    context = {}
-    return render(request, 'basketapp/basket.html', context)
+def basket_remove(request, pk):
+    basket_record = get_object_or_404(Basket, pk=pk)
+    basket_record.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

@@ -10,7 +10,6 @@
 		<div class="hero-white">
 			<div class="header clearfix">
 {% include 'includes/main_menu.html' %}
-                <a href="#" class="basket"></a>
 			</div>
 		</div>
 
@@ -31,9 +30,9 @@
 				</ul>
 			</div>
 			<div class="details-products_upd">
-				<div class="details-slider">
-					<div class="slider-product">
-						<img src="{% static 'mainapp/img/slider1.jpg' %}">
+				<div>
+					<div class="slider-product_upd">
+						<img src="{{ hot_product.image.url }}">
 					</div>
 					<div class="slider-control">
 						<div class="block">
@@ -55,19 +54,14 @@
 				</div>
 
 				<div class="description description__upd">
-					<h3 class="big-bold__upd">Отличный стул</h3>
+					<h3 class="big-bold__upd">{{ hot_product.name }}</h3>
 					<h3 class="red">горячее предложение</h3>
-					<p class="price"> 2585.9 <span>руб</span></p>
-					<a href="#" class="red-button">
+					<p class="price">{{ hot_product.price }}</p>
+					<a href="{% url 'basket:add' pk=hot_product.pk %}" class="red-button">
 						заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
 					</a>
 					<div class="description-text">
-						<p>Расположитесь комфортно.</p> 
-						<p>Отличное качество материалов
-						позволит вам это.</p> 
-						<p>Различные цвета</p>
-						<p>высочайший уровень
-						эргономики и прочность.</p>
+						<p>{{ hot_product.description }}</p>
 					</div>
 				</div>
 			</div>
@@ -96,13 +90,10 @@
 			{% endif %}
 
 			<div class="related_upd same_products">
+				{% if category %}
 				<div class="title_upd">
-					{% if category %}
 					<h2>Похожие товары:</h2>
 					<a class="explore_upd" href="{% url 'products:products' %}">показать все ></a>
-					{% else %}
-					<h2>Все товары:</h2>
-					{% endif %}
 				</div>
 				<div class="tab-content_upd">
 				{% for product in same_products %}
@@ -116,6 +107,23 @@
 					</a>
 				</div>
 				{% endfor %}
+				{% else %}
+				<div class="title_upd">
+					<h2>Все товары:</h2>
+				</div>
+				<div class="tab-content_upd">
+				{% for product in products %}
+				<div class="block">
+					<a href="{% url 'basket:add' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
+						<div class="text">
+							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
+							<h4>{{ product.name }}</h4>
+							<p>{{ product.short_description }}</p>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+				{% endif %}
 			</div>
 			</div>
 		</div>

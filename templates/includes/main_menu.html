@@ -22,8 +22,13 @@
             <a href="{% url 'auth:login' %}">войти</a>
         {% endif %}
         </li>
+        {% if basket %}
         <li>
-            <a href="/">{% if basket %} {{ basket|length }} {% endif %}</a>
+            <a href="{% url 'basketapp:index' %}">
+                {{ basket.0.total_cost|floatformat:0 }} ₽
+                /{{ basket.0.total_quantity }} шт/
+                </a>
         </li>
+        {% endif %}
     </ul>
     <a href="#" class="search"></a>

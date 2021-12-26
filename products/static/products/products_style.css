@@ -77,8 +77,17 @@
 .related-products_upd .block a img {
 	float: left;
 }
+.slider-product_upd{
+    /*width: 470px;*/
+    height: 470px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .details-products_upd{
-	display: none;
+	display: flex;
+	justify-content: space-around;
+    margin: 20px;
 }
 .related-products_upd .block {
 	float: left;

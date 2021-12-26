@@ -127,6 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'products/static'),
     os.path.join(BASE_DIR, 'mainapp/static'),
+    os.path.join(BASE_DIR, 'basketapp/static'),
 ]
 
 MEDIA_URL = '/media/'

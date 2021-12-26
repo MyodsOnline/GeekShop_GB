@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ title }}
+{% endblock %}
+{% block css %}
+	<link rel="stylesheet" href="{% static 'basketapp/basket_style.css' %}">
+{% endblock %}
+{% block content %}
+		<div class="hero-white">
+			<div class="header clearfix">
+{% include 'includes/main_menu.html' %}
+			</div>
+		</div>
+		<div class="basket_container">
+			<h2>Ваша корзина, {{ user.username }}</h2>
+			<table>
+				<tr>
+					<th>Изображение</th>
+					<th>Название</th>
+					<th>Цена</th>
+					<th>Количество</th>
+					<th>Стоимость</th>
+					<th></th>
+				</tr>
+				{% for item in basket_items%}
+				<tr class="item">
+					<td><img src="{{ item.product.image.url }}" width="70px"></td>
+					<td>{{ item.product.name }}</td>
+					<td>{{ item.product.price }} ₽</td>
+					<td><input type="number" name="{{ item.pk }}" min="0" value="{{ item.quantity }}"></td>
+					<td>{{ item.total_cost }} ₽</td>
+					<td><a href="{% url 'basket:remove' item.pk %}" class="basket_remove">✖ Удалить</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+{% endblock %}
