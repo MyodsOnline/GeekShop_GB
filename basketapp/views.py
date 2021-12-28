@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -12,9 +13,14 @@ from products.models import Product
 def basket(request):
     title = f'Корзина {request.user.username}'
     basket_items = Basket.objects.filter(user=request.user).order_by('product__category')
+    sample_list = random.sample([x for x in range(1, len(Product.objects.all())+1)], 4)
+    sample_products = []
+    for i in sample_list:
+        sample_products.append(Product.objects.get(pk=i))
     context = {
         'title': title,
         'basket_items': basket_items,
+        'sample_products': sample_products,
     }
     return render(request, 'basketapp/basket.html', context)
 

@@ -1,11 +1,12 @@
 window.onload = function () {
-    $('.basket_container').on('click', 'input[type="number"]', function () {
+    $('.basket_table').on('click', 'input[type="number"]', function () {
         var t_href = event.target;
-
+        console.log(t_href.name)
+        console.log(t_href.value)
         $.ajax({
             url: "/basket/edit/" + t_href.name + "/" + t_href.value + "/",
             success: function (data) {
-                $('.basket_container').html(data.result);
+                $('.basket_table').html(data.result);
             },
 
         });

@@ -62,8 +62,8 @@ body{
 	text-align: center;
 	padding-bottom: 30px;
 }
-#wrapper h1{
-    background: -webkit-repeating-linear-gradient(-45deg, 
+/*#wrapper h1{
+    background: -webkit-repeating-linear-gradient(-45deg,
 	rgb(18, 83, 93) , 
 	rgb(18, 83, 93) 20px, 
 	rgb(64, 111, 118) 20px, 
@@ -71,7 +71,7 @@ body{
 	rgb(18, 83, 93) 40px);
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
-}
+}*/
 #wrapper h1:after{
 	content: ' ';
 	display: block;

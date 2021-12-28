@@ -1,35 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}
 	{{ title }}
 {% endblock %}
+
 {% block content %}
-		<div class="slider">
-			<div class="header clearfix">
-{% include 'includes/main_menu.html' %}
-			</div>
+		<header class="slider">
 			<div class="text-slider">
 				<h3 class="green">тенденции</h3>
-				<h3 class="big"> удобные стулья</h3>
-				<p>Новый уровень комфорта. Отличные характеристики.</p>
-				<a href="#" class="button-order">заказать <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+				<h3 class="big">опыт профессионалов</h3>
+				<p>Новый уровень стиля</p>
+				<a href="{% url 'products:products' %}" class="button-order">Каталог<img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
 			</div>	
-			<div class="navi">
+			<div class="navi w-100">
 				<a href="#"></a><a href="#"></a><a href="#"></a>
 			</div>
-		</div>
+		</header>
 
-		<div class="featured">
-			<div class="featured-menu">
-					<a class="active" href="#">Популярные</a><a href="#">Новинки</a>
+		<main class="container">
+			<div class="featured-menu d-flex">
+				<a class="active p-2" href="#">Популярные</a>
+				<a class="p-2"href="#">Новинки</a>
+				<a class="ms-auto p-2" href="{% url 'products:products' %}">показать все <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
 			</div>
-			<a class="explore" href="#">показать все <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
-			<div class="clearfix">
-			</div>
+			
 			<div class="tab-content">
 				{% for product in products_list %}
 				<div class="block">
-					<a href="#"><img src="/media/{{ product.image }}" alt="" width="270px" height="270px">
+					<a href="{% url 'products:detail' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
 						<div class="text">
 							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
 							<h4>{{ product.name }}</h4>
@@ -39,5 +38,5 @@
 				</div>
 				{% endfor %}
 			</div>
-		</div>
+		</main>
 {% endblock %}

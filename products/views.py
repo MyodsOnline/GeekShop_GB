@@ -23,8 +23,12 @@ def get_hot_product():
 
 
 def get_same_products(hot_product):
-    same_products = Product.objects.filter(category = hot_product.category).exclude(pk=hot_product.pk)
-    return same_products
+    same_products = Product.objects.filter(category=hot_product.category).exclude(pk=hot_product.pk)
+    if same_products:
+        return same_products
+    else:
+        same_products = Product.objects.all().order_by('price')[:4]
+        return same_products
 
 
 def products(request, pk=None):
@@ -34,22 +38,16 @@ def products(request, pk=None):
     basket = get_basket(request.user)
     hot_product = get_hot_product()
     same_products = get_same_products(hot_product)
-    products = Product.objects.all().order_by('price')
+    products_list = Product.objects.all().order_by('price')
 
     if pk is not None:
-
         category = get_object_or_404(ProductCategory, pk=pk)
-        products = Product.objects.filter(category__pk=pk).order_by('price')
-
-        # same_list = random.sample([x for x in range(1, len(Product.objects.all())+1)], 4)
-        # same_products = []
-        # for i in same_list:
-        #     same_products.append(Product.objects.get(pk=i))
+        products_in_category = Product.objects.filter(category__pk=pk).order_by('price')
 
         context = {
             'title': title,
             'links_menu': links_menu,
-            'products': products,
+            'products': products_in_category,
             'category': category,
             'basket': basket,
             'same_products': same_products,
@@ -60,7 +58,7 @@ def products(request, pk=None):
     context = {
         'title': title,
         'links_menu': links_menu,
-        'products': products,
+        'products_list': products_list,
         'basket': basket,
         'same_products': same_products,
         'hot_product': hot_product

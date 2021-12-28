@@ -1,34 +1,42 @@
-
+<nav class="header w-100 pb-4">
     <a href="{% url 'mainapp:home' %}" class="logo"></a>
-    <ul class="menu">
-        <li><a href="{% url 'mainapp:home' %}">домой</a></li>
+    <ul class="header_menu">
+        <li class="dissapeared"><a href="{% url 'mainapp:home' %}">домой</a></li>
         <li><a href="{% url 'products:products' %}">продукты</a></li>
-        <li><a href="{% url 'mainapp:contacts' %}">контакты</a></li>
-        <li>
+        <li class="dissapeared"><a href="{% url 'mainapp:contacts' %}">контакты</a></li>
         {% if user.is_authenticated %}
         <li>
-            <a href="{% url 'auth:edit' %}">
+            <a  class="user" href="{% url 'auth:edit' %}">
                 {% if user.first_name %}
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     {{ user.first_name }}
                 {% else %}
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     {{ user.username }}
                 {% endif %}
             </a>
         </li>
         {% endif %}
         {% if user.is_authenticated %}
-            <a href="{% url 'auth:logout' %}">выйти</a>
+        <li>
+            <a  class="user" href="{% url 'auth:logout' %}">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>выйти
+            </a>
         {% else %}
-            <a href="{% url 'auth:login' %}">войти</a>
+            <a href="{% url 'auth:login' %}">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>войти
+            </a>
         {% endif %}
         </li>
         {% if basket %}
         <li>
-            <a href="{% url 'basketapp:index' %}">
+            <a  class="user" href="{% url 'basketapp:index' %}">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                 {{ basket.0.total_cost|floatformat:0 }} ₽
-                /{{ basket.0.total_quantity }} шт/
+                ({{ basket.0.total_quantity }} шт)
                 </a>
         </li>
         {% endif %}
+        <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
     </ul>
-    <a href="#" class="search"></a>
+</nav>

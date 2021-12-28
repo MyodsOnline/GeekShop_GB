@@ -5,35 +5,32 @@
 {% endblock %}
 {% block css %}
 	<link rel="stylesheet" href="{% static 'products/products_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/style_media.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="hero-white">
-        <div class="header clearfix">
-{% include 'includes/main_menu.html' %}
-        </div>
-    </div>
-    <div class="details">
-        <div class="details-products_upd">
-            <div>
-                <div class="slider-product_upd">
-                    <img src="{{ product.image.url }}">
-                </div>
-                <div class="navi">
-                    <a href="#"></a><a href="#"></a><a href="#"></a>
-                </div>
-            </div>
-
-            <div class="description description__upd">
-                <h3 class="big-bold__upd">{{ product.name }}</h3>
-                <h3 class="red">горячее предложение</h3>
-                <p class="price">{{ product.price }}</p>
-                <a href="{% url 'basket:add' pk=product.pk %}" class="red-button">
-                    заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                </a>
-                <div class="description-text">
-                    <p>{{ product.description }}</p>
+            <div class="container my-4">
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="description__img">
+                            <img src="{{ product.image.url }}">
+                            <div class="navi_prod">
+                                <a href="#"></a><a href="#"></a><a href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="description__upd">
+                            <h3 class="red_upd">горячее предложение</h3>
+                            <h3 class="big-bold__upd">{{ product.name }}</h3>
+                            <p class="price_upd">за {{ product.price }} ₽</p>
+                            <a href="{% url 'basket:add' pk=product.pk %}" class="red-button">
+                                заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </a>
+                            <div class="description-text">
+                                <p>{{ product.description }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 {% endblock %}
