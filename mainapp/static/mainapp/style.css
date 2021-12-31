@@ -75,7 +75,7 @@ body {
 }
 
 .text-slider p {
-	color: #717070;
+	color: #a3cbd1;
 	font-size: 30px;
 	padding-left: 15%;
 }
@@ -85,15 +85,17 @@ body {
 	background-size: cover;
 }
 .img_1{
-    background-image: url(img/ststic_1.jpg), linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), url(img/ststic_1.jpg);
 	background-size: cover;
+	background-repeat: no-repeat, no-repeat;
+    background-position: bottom left, bottom left;
 }
 .img_2{
-    background-image: url(img/ststic_2.jpeg), linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), url(img/ststic_2.jpeg);
 	background-size: cover;
 }
 .img_3{
-    background-image: url(img/ststic_3.jpeg), linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), url(img/ststic_3.jpeg);
 	background-size: cover;
 }
 .button-order {
