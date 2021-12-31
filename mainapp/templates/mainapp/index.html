@@ -6,15 +6,45 @@
 {% endblock %}
 
 {% block content %}
-		<header class="slider">
-			<div class="text-slider">
-				<h3 class="green">тенденции</h3>
-				<h3 class="big">опыт профессионалов</h3>
-				<p>Новый уровень стиля</p>
-				<a href="{% url 'products:products' %}" class="button-order">Каталог<img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
-			</div>	
-			<div class="navi w-100">
-				<a href="#"></a><a href="#"></a><a href="#"></a>
+		<header class="header_slider">
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  </div>
+			  <div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="carousel-item_inner img_1">
+						<div class="text-slider">
+							<h3 class="green">{{ promo.0.promo_title }}</h3>
+							<h3 class="big">{{ promo.0.promo_text }}</h3>
+							<p>{{ promo.0.promo_slogan }}</p>
+							<a href="{% url 'products:products' %}" class="button-order">Каталог<img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-item_inner img_2">
+						<div class="text-slider">
+							<h3 class="green">{{ promo.1.promo_title }}</h3>
+							<h3 class="big">{{ promo.1.promo_text }}</h3>
+							<p>{{ promo.1.promo_slogan }}</p>
+							<a href="{% url 'products:products' %}" class="button-order">Каталог<img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-item_inner img_3">
+						<div class="text-slider">
+							<h3 class="green">{{ promo.2.promo_title }}</h3>
+							<h3 class="big">{{ promo.2.promo_text }}</h3>
+							<p>{{ promo.2.promo_slogan }}</p>
+							<a href="{% url 'products:products' %}" class="button-order">Каталог<img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
+						</div>
+					</div>
+				</div>
+			  </div>
 			</div>
 		</header>
 
