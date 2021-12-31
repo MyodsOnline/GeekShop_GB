@@ -14,36 +14,18 @@
 				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 			  </div>
 			  <div class="carousel-inner">
-				<div class="carousel-item active">
-					<div class="carousel-item_inner img_1">
+			  	{% for el in promo %}
+				<div class="carousel-item {% if el.pk == 1 %}active{% endif %}">
+					<div class="carousel-item_inner img_{{ el.pk }}">
 						<div class="text-slider">
-							<h3 class="green">{{ promo.0.promo_title }}</h3>
-							<h3 class="big">{{ promo.0.promo_text }}</h3>
-							<p>{{ promo.0.promo_slogan }}</p>
+							<h3 class="green">{{ el.promo_title }}</h3>
+							<h3 class="big">{{ el.promo_text }}</h3>
+							<p>{{ el.promo_slogan }}</p>
 							<a href="{% url 'products:products' %}" class="button-order">Каталог</a>
 						</div>
 					</div>
 				</div>
-				<div class="carousel-item">
-					<div class="carousel-item_inner img_2">
-						<div class="text-slider">
-							<h3 class="green">{{ promo.1.promo_title }}</h3>
-							<h3 class="big">{{ promo.1.promo_text }}</h3>
-							<p>{{ promo.1.promo_slogan }}</p>
-							<a href="{% url 'products:products' %}" class="button-order">Каталог</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<div class="carousel-item_inner img_3">
-						<div class="text-slider">
-							<h3 class="green">{{ promo.2.promo_title }}</h3>
-							<h3 class="big">{{ promo.2.promo_text }}</h3>
-							<p>{{ promo.2.promo_slogan }}</p>
-							<a href="{% url 'products:products' %}" class="button-order">Каталог</a>
-						</div>
-					</div>
-				</div>
+			  	{% endfor %}
 			  </div>
 			</div>
 		</header>
@@ -54,7 +36,7 @@
 				<a class="p-2"href="#">Новинки</a>
 				<a class="ms-auto p-2" href="{% url 'products:products' %}">показать все ></a>
 			</div>
-			
+
 			<div class="tab-content">
 				{% for product in products_list %}
 				<div class="block">

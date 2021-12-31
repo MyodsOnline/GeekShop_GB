@@ -2,16 +2,13 @@ from django.shortcuts import render
 
 from products.models import Product
 from basketapp.models import Basket
+from mainapp.models import Promo
 
 
 def home(request):
     title = 'GeekShop'
     products_list = Product.objects.all()[:4]
-    promo = [
-        {'promo_title': 'Тенденции', 'promo_text': 'Опыт профессионалов', 'promo_slogan': 'Новое качество жизни'},
-        {'promo_title': 'Решительность', 'promo_text': 'Скорее в отрыв!', 'promo_slogan': 'Мировые тенденции'},
-        {'promo_title': 'Образ', 'promo_text': 'Следующий уровень комфорта', 'promo_slogan': 'Советы экспертов'},
-    ]
+    promo = Promo.objects.all()
 
     basket = []
     if request.user.is_authenticated:
