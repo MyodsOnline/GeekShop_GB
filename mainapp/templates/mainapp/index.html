@@ -50,5 +50,28 @@
 				</div>
 				{% endfor %}
 			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item {% if not products_list.has_previous %} disabled {% endif %}">
+						<a class="page-link"
+						   href="{% if products_list.has_previous %} {% url 'mainapp:page' products_list.previous_page_number %} {% else %} # {% endif %}"
+						   aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					{% for page in products_list.paginator.page_range %}
+					<li class="page-item">
+						<a class="page-link" href="{% url 'mainapp:page' page %}">{{ page }}</a>
+					</li>
+					{% endfor %}
+					<li class="page-item {% if not products_list.has_next %} disabled {% endif %}">
+						<a class="page-link"
+						   href="{% if products_list.has_next %} {% url 'mainapp:page' products_list.next_page_number %} {% else %} # {% endif %}"
+						   aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
 		</main>
 {% endblock %}

@@ -1,11 +1,12 @@
 from django.urls import path
 
-from .views import home, contacts, new
+from .views import home, contacts
 
 app_name = 'mainapp'
 
 urlpatterns = [
     path('', home, name='home'),
-    path('new/', new, name='new'),
+    path('page/<int:page>/', home, name='page'),
+    path('new/', home, name='new'),
     path('contacts/', contacts, name='contacts'),
 ]
