@@ -31,12 +31,10 @@ def user_create(request):
             return HttpResponseRedirect(reverse('admin_staff:users'))
     else:
         user_form = ShopUserRegisterForm()
-
     context = {
         'title': title,
         'user_form': user_form,
     }
-
     return render(request, 'adminapp/user_update.html', context)
 
 
@@ -48,7 +46,7 @@ def user_update(request, pk):
         edit_form = ShopUserAdminEditForm(request.POST, request.FILES, instance=edit_user)
         if edit_form.is_valid():
             edit_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:user_update', args=[edit_user.pk]))
+            return HttpResponseRedirect(reverse('admin_staff:users'))
     else:
         edit_form = ShopUserAdminEditForm(instance=edit_user)
     context = {
@@ -112,7 +110,7 @@ def products(request, pk):
     return render(request, 'adminapp/products.html', context)
 
 
-# @user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_superuser)
 def product_create(request, pk):
     title = 'продукт/cоздание'
     category = get_object_or_404(ProductCategory, pk=pk)
