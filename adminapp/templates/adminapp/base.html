@@ -32,7 +32,7 @@
     <nav class="nav">
         <div>
             <a href="{% url 'mainapp:home' %}" class="nav_logo">
-                <i class='bx bx-layer nav_logo-icon'></i>
+                <i class='bx bx-home nav_logo-icon'></i>
                 <span class="nav_logo-name">Admin`ka</span>
             </a>
             {% include 'adminapp/inludes/inc_admin_menu.html' %}
@@ -41,7 +41,7 @@
     </nav>
 </div>
 <!--Container Main start-->
-<div class="height-100 bg-light">
+<div class="height-100 py-2">
     {% block content %}
     {% endblock %}
 </div>

@@ -3,12 +3,11 @@
 
 {% block content %}
 <main>
-    <div class="container-fluid">
-        <h1 class="mt-4">Товары</h1>
+    <div class="container-fluid mt-3">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table mr-1"></i>
-                Товары категории: <strong>{{ category.name|title }}</strong>
+                Товары категории: <p class="display-4">{{ category.name|title }}</p>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -23,16 +22,6 @@
                             <th>Удалить</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Наименование</th>
-                            <th>Количество</th>
-                            <th>Стоимость</th>
-                            <th>Детали</th>
-                            <th>Редактировать</th>
-                            <th>Удалить</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         {% for product in objects %}
                             <tr {% if not product.is_active %} style="opacity: 0.5;" {% endif %}>
