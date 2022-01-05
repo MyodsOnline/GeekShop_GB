@@ -32,8 +32,8 @@
 
 		<main class="container">
 			<div class="featured-menu d-flex">
-				<a class="active p-2" href="#">Популярные</a>
-				<a class="p-2"href="#">Новинки</a>
+				<a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} p-2" href="{% url 'mainapp:home' %}">Популярные</a>
+				<a class="{% if request.resolver_match.url_name == 'new' %}active{% endif %} p-2"href="{% url 'mainapp:new' %}">Новинки</a>
 				<a class="ms-auto p-2" href="{% url 'products:products' %}">показать все ></a>
 			</div>
 
