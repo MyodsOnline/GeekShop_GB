@@ -33,7 +33,7 @@ def get_same_products(hot_product):
 
 def products(request, pk=None):
     title = 'Products'
-    links_menu = ProductCategory.objects.all()
+    links_menu = ProductCategory.objects.filter(is_active=True)
     products_json = json.load(open(source_file, encoding='utf-8'))
     basket = get_basket(request.user)
     hot_product = get_hot_product()
