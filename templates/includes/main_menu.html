@@ -17,6 +17,14 @@
             </a>
         </li>
         {% endif %}
+        {% if user.is_superuser %}
+        <li>
+            <a  class="user" href="{% url 'admin_staff:users' %}">
+                <i class="fa fa-gears" aria-hidden="true"></i>
+                Админка
+            </a>
+        </li>
+        {% endif %}
         {% if user.is_authenticated %}
         <li>
             <a  class="user" href="{% url 'auth:logout' %}">

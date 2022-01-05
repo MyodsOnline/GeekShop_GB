@@ -85,13 +85,13 @@ body {
 	background-size: cover;
 }
 .img_1{
-    background-image: linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), url(img/ststic_1.jpg);
+    background-image: linear-gradient(to right, rgba(50, 158, 255, 1), rgba(255, 255, 255, 0)), url(img/ststic_1.jpg);
 	background-size: cover;
 	background-repeat: no-repeat, no-repeat;
     background-position: bottom left, bottom left;
 }
 .img_2{
-    background-image: linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), url(img/ststic_2.jpeg);
+    background-image: linear-gradient(to right, rgba(52, 148, 89, 1), rgba(255, 255, 255, 0)), url(img/ststic_2.jpeg);
 	background-size: cover;
 }
 .img_3{

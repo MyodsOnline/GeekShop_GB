@@ -6,6 +6,7 @@ class ProductCategory(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Категория'
@@ -23,6 +24,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products_images', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0, verbose_name='Цена товара')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество товара')
+    is_active = models.BooleanField(default=True)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
