@@ -2,30 +2,53 @@
 {% load static %}
 
 {% block content %}
-<div class="row container-fluid">
-{% for object in objects %}
-    <div class="card m-2" style="width: 18rem;">
-      <img src="{{ object.image.url }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{ object.name }}</h5>
-        {% if object.is_active %}
-            <p class="card-text">{{ object.short_description }}</p>
-        {% else %}
-        <p class="card-text"><mark>Товар неактивен</mark></p>
-        {% endif %}
+  <div class="row container-fluid">
+    {% for object in objects %}
+      <div class="card m-2" style="width: 18rem;">
+        <img src="{{ object.image.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ object.name }}</h5>
+          {% if object.is_active %}
+          <p class="card-text">{{ object.short_description }}</p>
+          {% else %}
+          <p class="card-text"><mark>Товар неактивен</mark></p>
+          {% endif %}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Цена — {{ object.price }}</li>
+          <li class="list-group-item">Количество — {{ object.quantity }}</li>
+          <li class="list-group-item">Категория — {{ object.category }}</li>
+        </ul>
+        <div class="card-body">
+          <a href="{% url 'admin_staff:product_update' object.pk %}" class="card-link">Править</a>
+          {% if object.is_active %}
+          <a href="{% url 'admin_staff:product_delete' pk=object.id %}" class="card-link">Удалить</a>
+          {% endif %}
+        </div>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Цена — {{ object.price }}</li>
-        <li class="list-group-item">Количество — {{ object.quantity }}</li>
-        <li class="list-group-item">Категория — {{ object.category }}</li>
-      </ul>
-      <div class="card-body">
-        <a href="{% url 'admin_staff:product_update' object.pk %}" class="card-link">Править</a>
-        {% if object.is_active %}
-            <a href="{% url 'admin_staff:product_delete' pk=object.id %}" class="card-link">Удалить</a>
-        {% endif %}
-      </div>
-    </div>
-{% endfor %}
+    {% endfor %}
   </div>
+  <nav aria-label="Page navigation example" style="margin-top: 30px;">
+      <ul class="pagination justify-content-center">
+          <li class="page-item {% if not objects.has_previous %} disabled {% endif %}">
+              <a class="page-link"
+                 href="{% if objects.has_previous %} {% url 'adminapp:page' objects.previous_page_number %} {% else %} # {% endif %}"
+                 aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% for page in objects.paginator.page_range %}
+          <li class="page-item">
+              <a class="page-link" href="{% url 'adminapp:page' page %}">{{ page }}</a>
+          </li>
+          {% endfor %}
+          <li class="page-item {% if not objects.has_next %} disabled {% endif %}">
+              <a class="page-link"
+                 href="{% if objects.has_next %} {% url 'adminapp:page' objects.next_page_number %} {% else %} # {% endif %}"
+                 aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+      </ul>
+  </nav>
 {% endblock %}

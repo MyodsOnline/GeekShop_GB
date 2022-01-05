@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from adminapp.forms import ShopUserAdminEditForm, ProductEditForm, ProductCategoryEditForm
 from authapp.forms import ShopUserRegisterForm
@@ -135,13 +136,20 @@ def category_delete(request, pk):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def products_list(request):
+def products_list(request, page=1):
     title = 'админка/товары'
+    context = {'title': title}
     products_list = Product.objects.all().order_by('name')
-    context = {
-        'title': title,
-        'objects': products_list,
-    }
+
+    paginator = Paginator(products_list, 3)
+    try:
+        products_paginator = paginator.page(page)
+    except PageNotAnInteger:
+        products_paginator = paginator.page(1)
+    except EmptyPage:
+        products_paginator = paginator.page(paginator.num_pages)
+    context['objects'] = products_paginator
+
     return render(request, 'adminapp/products_read.html', context)
 
 
@@ -162,21 +170,17 @@ def products(request, pk):
 def product_create(request, pk):
     title = 'продукт/cоздание'
     category = get_object_or_404(ProductCategory, pk=pk)
-
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
             return HttpResponseRedirect(reverse('admin_staff:products', args=[pk]))
-
     else:
         product_form = ProductEditForm(initial={'category': category})
-
     context = {
         'title': title,
         'update_form': product_form,
     }
-
     return render(request, 'adminapp/product_update.html', context)
 
 
@@ -213,17 +217,13 @@ def product_update(request, pk):
 @user_passes_test(lambda u: u.is_superuser)
 def product_delete(request, pk):
     title = 'продукт/удаление'
-
     product = get_object_or_404(Product, pk=pk)
-
     if request.method == 'POST':
         product.is_active = False
         product.save()
         return HttpResponseRedirect(reverse('admin_staff:products', args=[product.category.pk]))
-
     context = {
         'title': title,
         'product_to_delete': product,
     }
-
     return render(request, 'adminapp/product_delete.html', context)

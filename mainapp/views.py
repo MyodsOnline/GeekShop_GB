@@ -20,7 +20,7 @@ def home(request, page=1):
         'basket': basket,
     }
 
-    products_list = Product.objects.all()[1:4] if request.resolver_match.url_name == 'new' else Product.objects.all()
+    products_list = Product.objects.all().order_by('updated_at')[1:4] if request.resolver_match.url_name == 'new' else Product.objects.all()
 
     paginator = Paginator(products_list, 3)
     try:
