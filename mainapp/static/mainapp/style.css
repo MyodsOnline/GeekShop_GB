@@ -832,7 +832,15 @@ td:first-child {
 	padding-right: 211px;
 	position: relative;
 }
-
+.page-item.activated .page-link {
+    z-index: 3;
+    color: #783131;
+    background-color: #d1d1d1;
+    border-color: #6c6c6c;
+}
+.page-item .page-link{
+    color: #783131;
+}
 .links {
 	height: 70px;
 	background-color: #f4f4f4;

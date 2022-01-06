@@ -30,25 +30,29 @@
   </div>
   <nav aria-label="Page navigation example" style="margin-top: 30px;">
       <ul class="pagination justify-content-center">
-          <li class="page-item {% if not objects.has_previous %} disabled {% endif %}">
+          {% if objects.has_previous %}
+          <li class="page-item">
               <a class="page-link"
                  href="{% if objects.has_previous %} {% url 'adminapp:page' objects.previous_page_number %} {% else %} # {% endif %}"
                  aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
               </a>
           </li>
+          {% endif %}
           {% for page in objects.paginator.page_range %}
-          <li class="page-item">
+          <li class="page-item {% if objects.number == page %}active{% endif %}">
               <a class="page-link" href="{% url 'adminapp:page' page %}">{{ page }}</a>
           </li>
           {% endfor %}
-          <li class="page-item {% if not objects.has_next %} disabled {% endif %}">
+          {% if objects.has_next %}
+          <li class="page-item">
               <a class="page-link"
                  href="{% if objects.has_next %} {% url 'adminapp:page' objects.next_page_number %} {% else %} # {% endif %}"
                  aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
               </a>
           </li>
+          {% endif %}
       </ul>
   </nav>
 {% endblock %}
