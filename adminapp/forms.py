@@ -8,7 +8,12 @@ from products.models import ProductCategory, Product
 class ShopUserAdminEditForm(ShopUserEditForm):
     class Meta:
         model = ShopUser
-        fields = '__all__'
+        fields = ['username', 'first_name', 'is_active']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(),
+        }
 
 
 class ProductCategoryEditForm(forms.ModelForm):
