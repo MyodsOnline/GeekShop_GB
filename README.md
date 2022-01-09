@@ -2,7 +2,7 @@
 Training project on creating an online store on the Django framework  
 ### To see the project abilities please make sure you have done:
 
-python manage.py makemigrations
+python manage.py makemigrations  
 python manage.py migrate  
 
 ### To load some data in database:  
