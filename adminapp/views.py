@@ -4,10 +4,10 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 
-from adminapp.forms import ShopUserAdminEditForm, ProductEditForm, ProductCategoryEditForm
+from adminapp.forms import ShopUserAdminEditForm, ProductEditForm, ProductCategoryEditForm, UserAdminUpdateForm
 from authapp.forms import ShopUserEditForm, ShopUserRegisterForm
 
 from authapp.models import ShopUser
@@ -63,37 +63,61 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy('admin_staff:users')
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def user_update(request, pk):
-    title = 'пользователи/редактирование'
-    edit_user = get_object_or_404(ShopUser, pk=pk)
-    if request.method == 'POST':
-        edit_form = ShopUserAdminEditForm(request.POST, request.FILES, instance=edit_user)
-        if edit_form.is_valid():
-            edit_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:users'))
-    else:
-        edit_form = ShopUserAdminEditForm(instance=edit_user)
-    context = {
-        'title': title,
-        'user_form': edit_form,
-    }
-    return render(request, 'adminapp/user_update.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def user_update(request, pk):
+#     title = 'пользователи/редактирование'
+#     edit_user = get_object_or_404(ShopUser, pk=pk)
+#     if request.method == 'POST':
+#         edit_form = ShopUserAdminEditForm(request.POST, request.FILES, instance=edit_user)
+#         if edit_form.is_valid():
+#             edit_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:users'))
+#     else:
+#         edit_form = ShopUserAdminEditForm(instance=edit_user)
+#     context = {
+#         'title': title,
+#         'user_form': edit_form,
+#     }
+#     return render(request, 'adminapp/user_update.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def user_delete(request, pk):
-    title = 'пользователи/удаление'
-    user = get_object_or_404(ShopUser, pk=pk)
-    if request.method == 'POST':
-        user.is_active = False
-        user.save()
-        return HttpResponseRedirect(reverse('admin_staff:users'))
-    context = {
-        'title': title,
-        'user_to_delete': user,
-    }
-    return render(request, 'adminapp/user_delete.html', context)
+class UserUpdateView(UpdateView):
+    model = ShopUser
+    template_name = 'adminapp/user_update.html'
+    success_url = reverse_lazy('admin_staff:users')
+    form_class = UserAdminUpdateForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'пользователи/редактирование'
+        return context
+
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def user_delete(request, pk):
+#     title = 'пользователи/удаление'
+#     user = get_object_or_404(ShopUser, pk=pk)
+#     if request.method == 'POST':
+#         user.is_active = False
+#         user.save()
+#         return HttpResponseRedirect(reverse('admin_staff:users'))
+#     context = {
+#         'title': title,
+#         'user_to_delete': user,
+#     }
+#     return render(request, 'adminapp/user_delete.html', context)
+
+
+class UserDeleteView(DeleteView):
+    model = ShopUser
+    template_name = 'adminapp/user_delete.html'
+    success_url = reverse_lazy('admin_staff:users')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 @user_passes_test(lambda u: u.is_superuser)

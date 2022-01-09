@@ -16,6 +16,20 @@ class ShopUserAdminEditForm(ShopUserEditForm):
         }
 
 
+class UserAdminUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ShopUser
+        fields = ['username', 'first_name', 'last_name', 'is_active', 'email', 'age', 'avatar', 'birth_date', 'promo_accept']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-control_upd'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'})
+        }
+
+
 class ProductCategoryEditForm(forms.ModelForm):
     class Meta:
         model = ProductCategory
