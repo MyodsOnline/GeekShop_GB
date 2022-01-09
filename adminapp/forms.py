@@ -1,7 +1,7 @@
 from django import forms
 
 from authapp.models import ShopUser
-from authapp.forms import ShopUserEditForm
+from authapp.forms import ShopUserEditForm, ShopUserRegisterForm
 from products.models import ProductCategory, Product
 
 
@@ -12,7 +12,7 @@ class ShopUserAdminEditForm(ShopUserEditForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'is_active': forms.CheckboxInput(),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-control_upd'}),
         }
 
 

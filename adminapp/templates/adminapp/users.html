@@ -14,31 +14,19 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
-                            <th>Имя пользователя</th>
-                            <th>Имя</th>
-                            <th>Фамилия</th>
-                            <th>Адрес эл. почты</th>
-                            <th>Персонал сайта</th>
-                            <th>Активный</th>
-                            <th>Вход</th>
-                            <th>Удалить</th>
-                        </tr>
+                            <tr>
+                                <th>Имя пользователя</th>
+                                <th>Имя</th>
+                                <th>Фамилия</th>
+                                <th>Адрес эл. почты</th>
+                                <th>Персонал сайта</th>
+                                <th>Активный</th>
+                                <th>Вход</th>
+                                <th>Удалить</th>
+                            </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Имя пользователя</th>
-                            <th>Имя</th>
-                            <th>Фамилия</th>
-                            <th>Адрес эл. почты</th>
-                            <th>Персонал сайта</th>
-                            <th>Активный</th>
-                            <th>Вход</th>
-                            <th>Удалить</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
-                        {% for user in objects %}
+                        {% for user in object_list %}
                             <tr {% if not user.is_active %} style="opacity: 0.5; text-decoration: line-through;" {% endif %}>
                                 <td><a href="{% url 'admin_staff:user_update' user.id %}" style="color: dodgerblue">{{ user.username }}</a></td>
                                 <td>{{ user.first_name }}</td>

@@ -1,42 +1,66 @@
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.utils.decorators import method_decorator
 
 from adminapp.forms import ShopUserAdminEditForm, ProductEditForm, ProductCategoryEditForm
-from authapp.forms import ShopUserRegisterForm
+from authapp.forms import ShopUserEditForm, ShopUserRegisterForm
 
 from authapp.models import ShopUser
 from products.models import Product, ProductCategory
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def users(request):
-    title = 'админка/пользователи'
-    users_list = ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
-    context = {
-        'title': title,
-        'objects': users_list
-    }
-    return render(request, 'adminapp/users.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def users(request):
+#     title = 'админка/пользователи'
+#     users_list = ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
+#     context = {
+#         'title': title,
+#         'objects': users_list
+#     }
+#     return render(request, 'adminapp/users.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def user_create(request):
-    title = 'пользователи/cоздание'
-    if request.method == 'POST':
-        user_form = ShopUserRegisterForm(request.POST, request.FILES)
-        if user_form.is_valid():
-            user_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:users'))
-    else:
-        user_form = ShopUserRegisterForm()
-    context = {
-        'title': title,
-        'user_form': user_form,
-    }
-    return render(request, 'adminapp/user_update.html', context)
+class UserListView(ListView):
+    model = ShopUser
+    template_name = 'adminapp/users.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['title'] = 'админка/пользователи'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserListView, self).dispatch(request, *args, **kwargs)
+
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def user_create(request):
+#     title = 'пользователи/cоздание'
+#     if request.method == 'POST':
+#         user_form = ShopUserRegisterForm(request.POST, request.FILES)
+#         if user_form.is_valid():
+#             user_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:users'))
+#     else:
+#         user_form = ShopUserRegisterForm()
+#     context = {
+#         'title': title,
+#         'user_form': user_form,
+#     }
+#     return render(request, 'adminapp/user_update.html', context)
+
+
+class UserCreateView(CreateView):
+    model = ShopUser
+    template_name = 'adminapp/user_create.html'
+    form_class = ShopUserRegisterForm
+    success_url = reverse_lazy('admin_staff:users')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -151,6 +175,8 @@ def products_list(request, page=1):
     context['objects'] = products_paginator
 
     return render(request, 'adminapp/products_read.html', context)
+
+
 
 
 @user_passes_test(lambda u: u.is_superuser)
