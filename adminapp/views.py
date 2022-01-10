@@ -121,32 +121,54 @@ class UserDeleteView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def categories(request):
-    title = 'админка/категории'
-    categories_list = ProductCategory.objects.all()
-    context = {
-        'title': title,
-        'objects': categories_list
-    }
-    return render(request, 'adminapp/categories.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def categories(request):
+#     title = 'админка/категории'
+#     categories_list = ProductCategory.objects.all()
+#     context = {
+#         'title': title,
+#         'objects': categories_list
+#     }
+#     return render(request, 'adminapp/categories.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_create(request):
-    title = 'категории/cоздание'
-    if request.method == 'POST':
-        category_form = ProductCategoryEditForm(request.POST)
-        if category_form.is_valid():
-            category_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:categories'))
-    else:
-        category_form = ProductCategoryEditForm()
-    context = {
-        'title': title,
-        'category_form': category_form,
-    }
-    return render(request, 'adminapp/categories_update.html', context)
+class CategoryListView(ListView):
+    model = ProductCategory
+    template_name = 'adminapp/categories.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['title'] = 'Админка/категории'
+        return context
+
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_create(request):
+#     title = 'категории/cоздание'
+#     if request.method == 'POST':
+#         category_form = ProductCategoryEditForm(request.POST)
+#         if category_form.is_valid():
+#             category_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     else:
+#         category_form = ProductCategoryEditForm()
+#     context = {
+#         'title': title,
+#         'category_form': category_form,
+#     }
+#     return render(request, 'adminapp/categories_update.html', context)
+
+
+class CategoryCreateView(CreateView):
+    model = ProductCategory
+    template_name = 'adminapp/categories_update.html'
+    success_url = reverse_lazy('admin_staff:categories')
+    form_class = ProductCategoryEditForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Категории/создание'
+        return context
 
 
 @user_passes_test(lambda u: u.is_superuser)
