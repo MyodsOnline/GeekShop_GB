@@ -1,6 +1,6 @@
 from django.urls import path
 import adminapp.views as adminapp
-from adminapp.views import UserListView, UserCreateView, UserUpdateView, UserDeleteView
+from adminapp.views import UserListView, UserCreateView, UserUpdateView, UserDeleteView, ProductsListView
 
 app_name = 'adminapp'
 
@@ -15,8 +15,8 @@ urlpatterns = [
     path('categories/update/<int:pk>/', adminapp.category_update, name='category_update'),
     path('categories/delete/<int:pk>/', adminapp.category_delete, name='category_delete'),
 
-    path('products/read/', adminapp.products_list, name='products_list'),
-    path('products/read/page/<int:page>/', adminapp.products_list, name='page'),
+    path('products/read/', ProductsListView.as_view(), name='products_list'),
+    path('products/read/page/<int:page>/', ProductsListView.as_view(), name='page'),
     path('products/create/category/<int:pk>/', adminapp.product_create, name='product_create'),
     path('products/read/category/<int:pk>/', adminapp.products, name='products'),
     path('products/read/<int:pk>/', adminapp.product_read, name='product_read'),

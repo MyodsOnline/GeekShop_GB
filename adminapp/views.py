@@ -111,6 +111,7 @@ class UserUpdateView(UpdateView):
 class UserDeleteView(DeleteView):
     model = ShopUser
     template_name = 'adminapp/user_delete.html'
+    context_object_name = 'user_to_delete'
     success_url = reverse_lazy('admin_staff:users')
 
     def delete(self, request, *args, **kwargs):
@@ -183,24 +184,33 @@ def category_delete(request, pk):
     return render(request, 'adminapp/category_delete.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def products_list(request, page=1):
-    title = 'админка/товары'
-    context = {'title': title}
-    products_list = Product.objects.all().order_by('name')
+# @user_passes_test(lambda u: u.is_superuser)
+# def products_list(request, page=1):
+#     title = 'админка/товары'
+#     context = {'title': title}
+#     products_list = Product.objects.all().order_by('name')
+#
+#     paginator = Paginator(products_list, 3)
+#     try:
+#         products_paginator = paginator.page(page)
+#     except PageNotAnInteger:
+#         products_paginator = paginator.page(1)
+#     except EmptyPage:
+#         products_paginator = paginator.page(paginator.num_pages)
+#     context['objects'] = products_paginator
+#
+#     return render(request, 'adminapp/products_read.html', context)
 
-    paginator = Paginator(products_list, 3)
-    try:
-        products_paginator = paginator.page(page)
-    except PageNotAnInteger:
-        products_paginator = paginator.page(1)
-    except EmptyPage:
-        products_paginator = paginator.page(paginator.num_pages)
-    context['objects'] = products_paginator
 
-    return render(request, 'adminapp/products_read.html', context)
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'adminapp/products_read.html'
+    paginate_by = 4
 
-
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductsListView, self).get_context_data(**kwargs)
+        context['title'] = 'Адмика/товары'
+        return context
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -271,7 +281,7 @@ def product_delete(request, pk):
     if request.method == 'POST':
         product.is_active = False
         product.save()
-        return HttpResponseRedirect(reverse('admin_staff:products', args=[product.category.pk]))
+        return HttpResponseRedirect(reverse('admin_staff:products_list'))
     context = {
         'title': title,
         'product_to_delete': product,
