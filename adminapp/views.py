@@ -171,39 +171,67 @@ class CategoryCreateView(CreateView):
         return context
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_update(request, pk):
-    title = 'категории/редактирование'
-    edit_category = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        edit_form = ProductCategoryEditForm(request.POST, request.FILES, instance=edit_category)
-        if edit_form.is_valid():
-            edit_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:categories'))
-
-    else:
-        edit_form = ProductCategoryEditForm(instance=edit_category)
-    context = {
-        'title': title,
-        'category_form': edit_form,
-    }
-
-    return render(request, 'adminapp/categories_update.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_update(request, pk):
+#     title = 'категории/редактирование'
+#     edit_category = get_object_or_404(ProductCategory, pk=pk)
+#     if request.method == 'POST':
+#         edit_form = ProductCategoryEditForm(request.POST, request.FILES, instance=edit_category)
+#         if edit_form.is_valid():
+#             edit_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     else:
+#         edit_form = ProductCategoryEditForm(instance=edit_category)
+#     context = {
+#         'title': title,
+#         'category_form': edit_form,
+#     }
+#     return render(request, 'adminapp/categories_update.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_delete(request, pk):
-    title = 'категории/cоздание'
-    category_to_delete = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        category_to_delete.is_active = False
-        category_to_delete.save()
-        return HttpResponseRedirect(reverse('admin_staff:categories'))
-    context = {
-        'title': title,
-        'category_to_delete': category_to_delete,
-    }
-    return render(request, 'adminapp/category_delete.html', context)
+class CategoryUpdateView(UpdateView):
+    model = ProductCategory
+    template_name = 'adminapp/categories_update.html'
+    success_url = reverse_lazy('admin_staff:categories')
+    form_class = ProductCategoryEditForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Категории/редактирование'
+        return context
+
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_delete(request, pk):
+#     title = 'категории/cоздание'
+#     category_to_delete = get_object_or_404(ProductCategory, pk=pk)
+#     if request.method == 'POST':
+#         category_to_delete.is_active = False
+#         category_to_delete.save()
+#         return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     context = {
+#         'title': title,
+#         'category_to_delete': category_to_delete,
+#     }
+#     return render(request, 'adminapp/category_delete.html', context)
+
+
+class CategoryDeleteView(DeleteView):
+    model = ProductCategory
+    template_name = 'adminapp/category_delete.html'
+    success_url = reverse_lazy('admin_staff:categories')
+    context_object_name = 'category_to_delete'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryDeleteView, self).get_context_data(**kwargs)
+        context['title'] = 'Категории/удаление'
+        return context
 
 
 # @user_passes_test(lambda u: u.is_superuser)
