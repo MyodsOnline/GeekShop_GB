@@ -1,5 +1,10 @@
 # GeekShop_GeekBrains
 Training project on creating an online store on the Django framework  
+### To use project your environment pip list must contains:  
+Django==3.2.9.   
+Pillow==8.4.0.   
+You can install it from requirements.txt using: pip install requirements.txt. 
+
 ### To see the project abilities please make sure you have done:
 
 python manage.py makemigrations  
