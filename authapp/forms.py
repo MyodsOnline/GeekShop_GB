@@ -64,7 +64,7 @@ class ShopUserEditForm(UserChangeForm):
 class ShopUserProfileEditForm(forms.ModelForm):
     tagline = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}))
     about_me = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control-edit'}))
-    gender = forms.CharField(widget=forms.Select)
+    gender = forms.CharField(widget=forms.Select(attrs={'class': 'form-control-edit'}))
 
     # widgets = {
     #     'tagline': forms.NumberInput(attrs={'class': 'form-control-edit'}),
