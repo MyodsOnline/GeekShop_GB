@@ -4,7 +4,7 @@ import random
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django import forms
 
-from authapp.models import ShopUser
+from authapp.models import ShopUser, ShopUserProfile
 
 
 class ShopUserLoginForm(AuthenticationForm):
@@ -60,10 +60,18 @@ class ShopUserEditForm(UserChangeForm):
         model = ShopUser
         fields = ('username', 'first_name', 'last_name', 'email', 'age', 'avatar', 'birth_date', 'promo_accept')
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     for field_name, field in self.fields.items():
-    #         field.widget.attrs['class'] = 'form-control-edit'
-    #         field.help_text = ''
-    #         if field_name == 'password':
-    #             field.widget = forms.HiddenInput()
+
+class ShopUserProfileEditForm(forms.ModelForm):
+    tagline = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control-edit'}))
+    about_me = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control-edit'}))
+    gender = forms.CharField(widget=forms.Select)
+
+    # widgets = {
+    #     'tagline': forms.NumberInput(attrs={'class': 'form-control-edit'}),
+    #     'about_me': forms.TextInput(attrs={'class': 'form-control-edit'}),
+    #     'gender': forms.Select(attrs={'class': 'form-control'}),
+    # }
+
+    class Meta:
+        model = ShopUserProfile
+        fields = ['tagline', 'about_me', 'gender']

@@ -33,6 +33,10 @@
                             <label for="{{ form.birth_date.id_for_label }}" class="youmail" data-icon="u" >День рождения</label><br>
                             {{ edit_form.birth_date }}
                         </p>
+                        <p class="keeplogin">
+                            <label for="{{ form.tagline.id_for_label }}" class="uname" data-icon="u">Тэги</label><br>
+                            {{ profile_form.tagline }}
+                        </p>
                     </div>
                     <div class="edit_col">
                         <div class="user_avatar">
@@ -43,12 +47,20 @@
                             {{ edit_form.avatar }}
                         </p>
                         <p class="keeplogin">
+                            <label for="{{ form.about_me.id_for_label }}" class="uname" data-icon="u">Обо мне:</label><br>
+                            {{ profile_form.about_me }}
+                        </p>
+                        <p class="keeplogin">
                             {{ edit_form.age }}
                             <label for="{{ form.age.id_for_label }}">Мне есть 18!</label><br>
                         </p>
                         <p class="keeplogin">
                             {{ edit_form.promo_accept }}
                             <label for="{{ form.promo_accept.id_for_label }}">Согласен на проморассылку!</label><br>
+                        </p>
+                        <p class="keeplogin">
+                            <label for="{{ form.gender.id_for_label }}" class="uname">Пол</label><br>
+                            {{ profile_form.gender }}
                         </p>
                         <p class="signin button"> 
                             <input type="submit" value="Обновить"/>

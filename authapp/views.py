@@ -2,9 +2,10 @@ from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
+from django.db import transaction
 
 from Geekshop import settings
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileEditForm
 from authapp.models import ShopUser
 
 
@@ -68,12 +69,14 @@ def register(request):
     return render(request, 'authapp/register.html', context)
 
 
+@transaction.atomic
 def edit(request):
     title = 'Редактирование'
 
     if request.method == 'POST':
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
+        profile_form = ShopUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
             messages.success(request, 'Данные успешно обновлены!')
             return HttpResponseRedirect(reverse('auth:edit'))
@@ -81,13 +84,15 @@ def edit(request):
             print(edit_form.errors)
     else:
         edit_form = ShopUserEditForm(instance=request.user)
+        profile_form = ShopUserProfileEditForm(instance=request.user.shopuserprofile)
 
-    content = {'title': title,
+    context = {'title': title,
                'greeting': 'Редактирование',
                'edit_form': edit_form,
+               'profile_form': profile_form,
                }
 
-    return render(request, 'authapp/edit.html', content)
+    return render(request, 'authapp/edit.html', context)
 
 
 def send_verify_mail(user):

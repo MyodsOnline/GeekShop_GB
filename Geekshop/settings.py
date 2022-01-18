@@ -25,10 +25,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cqy$1hshib^295q7v++m#wa%+7r@(u@&zs-c4*xmw*x26&i+kn'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'authapp',
     'basketapp',
     'adminapp',
+
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -152,10 +154,25 @@ DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'diver.vlz.gb@gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_FILE_PATH = 'tmp/emails'
+
+# 6k8Sl5w0MOyNKzhTqyom
+# 8054227
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = env('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = env('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+
+SOCIAL_AUTH_INSTAGRAM_KEY = env('SOCIAL_AUTH_INSTAGRAM_KEY')
+SOCIAL_AUTH_INSTAGRAM_SECRET = env('SOCIAL_AUTH_INSTAGRAM_SECRET')

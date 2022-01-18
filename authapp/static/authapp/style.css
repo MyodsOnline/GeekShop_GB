@@ -220,6 +220,12 @@ input {
 	     -o-transition: all 0.2s linear;
 	        transition: all 0.2s linear;
 }
+a.auth{
+    width: 150px;
+	cursor: pointer;
+	background: rgb(61, 157, 179);
+	padding: 5px;
+}
 #wrapper p.button input:hover{
 	background: rgb(74, 179, 198);
 }
