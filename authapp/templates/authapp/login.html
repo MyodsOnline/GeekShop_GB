@@ -1,0 +1,48 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper">
+        <div id="login" class="animate form">
+            <form action="{% url 'auth:login' %}" autocomplete="off" method="post">
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+                {{ form.non_filed.errors }}
+                <h1>GeekShop</h1>
+                <p> 
+                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u" > Имя пользователя </label><br>
+                    {{ login_form.username }}
+                </p>
+                <p> 
+                    <label for="{{ form.password.id_for_label }}" class="youpasswd" data-icon="p"> Пароль </label><br>
+                    {{ login_form.password }}
+                </p>
+                <p class="login button"> 
+                    <input type="submit" value="Войти" /> 
+                </p>
+                <p class="change_link">
+                    Не зарегистрированы ?
+                    <a href="{% url 'auth:register' %}" class="to_register">Регистрация</a>
+                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <p class="success">{{ message }}</p>
+    {% endfor %}
+{% else %}
+    {% if login_form.errors %}
+        {% for error in login_form.non_field_errors %}
+            <p class="errors">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+{% endblock %}

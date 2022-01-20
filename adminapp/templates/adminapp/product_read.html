@@ -1,0 +1,37 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ object.name }} {% if not object.is_active %}<mark>— товар disabled</mark>{% endif %}</h5>
+      <p class="card-text">{{ object.description }}</p>
+      <p class="card-text"><small class="text-muted">Доступно на складе — {{ object.quantity }}</small></p>
+      <p class="card-text"><small class="text-muted">Цена — {{ object.price }}</small></p>
+      <p class="card-text"><small class="text-muted">Категория — {{ object.category }}</small></p>
+    </div>
+    <img src="{{ object.image.url }}" class="card-img-bottom " style="width: 18rem;" alt="...">
+    <div class="row justify-content-end mt-5 mb-2">
+      <div class="col-4">
+        <button class="btn btn-light">
+          <a href="{% url 'admin_staff:products_list' %}">Перейти на главное меню</a>
+        </button>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-warning">
+          <a href="{% url 'admin_staff:product_update' object.pk %}">Править</a>
+        </button>
+      </div>
+      <div class="col-2">
+             <form action="{% url 'admin_staff:product_delete' object.pk %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="удалить">
+      </form>
+      </div>
+
+
+    </div>
+  </div>
+
+
+{% endblock %}

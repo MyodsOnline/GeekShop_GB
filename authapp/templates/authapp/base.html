@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+    <link rel="stylesheet" type="text/css" href="{% static 'authapp/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+  {% block forms %}{% endblock %}
+</body>

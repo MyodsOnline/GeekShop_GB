@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ title }}
+{% endblock %}
+{% block css %}
+	<link rel="stylesheet" href="{% static 'basketapp/basket_style.css' %}">
+{% endblock %}
+{% block js %}
+    <script src="{% static 'basketapp/js/basket_scripts.js' %}"></script>
+{% endblock %}
+{% block content %}
+	<div class="basket_container">
+		<h2>Ваша корзина {% if not basket_items %}пуста{% endif %}, {{ user.username }}</h2>
+		{% if basket_items %}
+			{% include 'basketapp/includes/inc_basket.html' %}
+		{% else %}
+			<img src="{% static '/basketapp/img/empty.jpeg' %}">
+		{% endif %}
+
+{% comment maybe later%}		
+		<div class="related_upd same_products">
+			<h4>Maybe you like</h4>
+			{% for product in sample_products %}
+			<div class="block">
+				<a href="{% url 'products:detail' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
+					<div class="text">
+						<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
+						<h4>{{ product.name }}</h4>
+						<p>{{ product.short_description }}</p>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+{% endcomment %}
+	</div>
+{% endblock %}
+{% block script %}
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
+{% endblock %}

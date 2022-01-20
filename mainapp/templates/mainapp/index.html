@@ -1,59 +1,81 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}
 	{{ title }}
 {% endblock %}
-{% block content %}
-		<div class="slider">
-			<div class="header clearfix">
-{% include 'includes/main_menu.html' %}
-			</div>
-			<div class="text-slider">
-				<h3 class="green">тенденции</h3>
-				<h3 class="big"> удобные стулья</h3>
-				<p>Новый уровень комфорта. Отличные характеристики.</p>
-				<a href="#" class="button-order">заказать <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
-			</div>	
-			<div class="navi">
-				<a href="#"></a><a href="#"></a><a href="#"></a>
-			</div>
-		</div>
 
-		<div class="featured">
-			<div class="featured-menu">
-					<a class="active" href="#">Популярные</a><a href="#">Новинки</a>
+{% block content %}
+		<header class="header_slider">
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  </div>
+			  <div class="carousel-inner">
+			  	{% for el in promo %}
+				<div class="carousel-item {% if el.pk == 1 %}active{% endif %}">
+					<div class="carousel-item_inner img_{{ el.pk }}">
+						<div class="text-slider">
+							<h3 class="green">{{ el.promo_title }}</h3>
+							<h3 class="big">{{ el.promo_text }}</h3>
+							<p>{{ el.promo_slogan }}</p>
+							<a href="{% url 'products:products' %}" class="button-order">Каталог</a>
+						</div>
+					</div>
+				</div>
+			  	{% endfor %}
+			  </div>
 			</div>
-			<a class="explore" href="#">показать все <img src="{% static 'mainapp/img/arrow.png' %}" alt=""></a>
-			<div class="clearfix">
+		</header>
+
+		<main class="container">
+			<div class="featured-menu d-flex">
+				<a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} p-2" href="{% url 'mainapp:home' %}">Популярные</a>
+				<a class="{% if request.resolver_match.url_name == 'new' %}active{% endif %} p-2"href="{% url 'mainapp:new' %}">Новинки</a>
+				<a class="ms-auto p-2" href="{% url 'products:products' %}">показать все ></a>
 			</div>
+
 			<div class="tab-content">
+				{% for product in products_list %}
 				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-1.jpg' %}" alt="">
+					<a href="{% url 'products:detail' pk=product.pk %}"><img src="{{ product.image.url }}" alt="" width="270px" height="270px">
 						<div class="text">
 							<img src="{% static '/mainapp/img/icon-hover.png' %}" alt="img">
-							<h4>Отличный стул</h4>
-							<p>Расположитесь комфортно. </p>
+							<h4>{{ product.name }}</h4>
+							<p>{{ product.short_description }}</p>
 						</div> 
 					</a>
 				</div>
-				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-3.jpg' %}" alt="">
-						<div class="text">
-							<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="img">
-							<h4>Супер стул</h4>
-							<p>Расположитесь комфортно. </p>
-						</div>
-					</a>
-				</div>
-				<div class="block">
-					<a href="#"><img src="{% static 'mainapp/img/product-2.jpg' %}" alt="">
-						<div class="text">
-							<img src="{% static 'mainapp/img/icon-hover.png' %}" alt="">
-							<h4>Стул повышенного качества</h4>
-							<p>Не оторваться. </p>
-						</div>
-					</a>
-				</div>	
+				{% endfor %}
 			</div>
-		</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					{% if products_list.has_previous %}
+					<li class="page-item">
+						<a class="page-link"
+						   href="{% url 'mainapp:page' products_list.previous_page_number %}"
+						   aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					{% endif %}
+					{% for page in products_list.paginator.page_range %}
+					<li class="page-item {% if products_list.number == page %}activated{% endif %}">
+						<a class="page-link" href="{% url 'mainapp:page' page %}">{{ page }}</a>
+					</li>
+					{% endfor %}
+					{% if products_list.has_next %}
+					<li class="page-item">
+						<a class="page-link"
+						   href="{% url 'mainapp:page' products_list.next_page_number %}"
+						   aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+					{% endif %}
+				</ul>
+			</nav>
+		</main>
 {% endblock %}

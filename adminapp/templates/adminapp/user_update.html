@@ -1,0 +1,95 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% comment %}
+{% block content %}
+ <main>
+    <div class="container-fluid">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Создание пользователя
+            </div>
+            <div class="card-body">
+
+                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form }}
+                  <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% endcomment %}
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Создание пользователя
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="form-row mt-2">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной
+                                почты</label>
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-lg-6">
+                            <div class="custom-file">
+                                <label class="small mb-1" for="{{ form.avatar.id_for_label }}">
+                                    Выберите изображение
+                                </label>
+                                {{ form.avatar }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.age.id_for_label }}">Пользователю есть 18!</label>
+                                {{ form.age }}
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.promo_accept.id_for_label }}">Согласие на рассылку!</label>
+                                {{ form.promo_accept }}
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.is_active.id_for_label }}">Is active</label>
+                                {{ form.is_active }}
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="card-footer">
+                    <a>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

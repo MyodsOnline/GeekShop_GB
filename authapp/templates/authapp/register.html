@@ -1,0 +1,55 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper">
+        <div id="register" class="animate form">
+            <form  action="{% url 'auth:register' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ register_form.non_filed.errors }}
+                <h1>GeekShop</h1> 
+                <p> 
+                    <label for="{{ form.username.id_for_label }}" class="uname" data-icon="u">Логин</label><br>
+                    {{ register_form.username }}
+                </p>
+                <p>
+                    <label for="{{ form.email.id_for_label }}" class="youmail" data-icon="e" >Электронная почта</label><br>
+                    {{ register_form.email }}
+                </p>
+                <p> 
+                    <label for="{{ form.password1.id_for_label }}" class="youpasswd" data-icon="p">Пароль</label><br>
+                    {{ register_form.password1 }}
+                </p>
+                <p> 
+                    <label for="{{ form.password2.id_for_label }}" class="youpasswd" data-icon="p">Подтверждение пароля</label><br>
+                    {{ register_form.password2 }}
+                </p>
+                <p> 
+                    <label for="{{ form.avatar.id_for_label }}" class="youpasswd" data-icon="u">Аватар</label><br>
+                    {{ register_form.avatar }}
+                </p>
+                <p class="keeplogin"> 
+                    {{ register_form.age }}
+                    <label for="{{ form.age.id_for_label }}">Мне есть 18!</label>
+                </p>
+                <p class="signin button"> 
+                    <input type="submit" value="Регистрация"/> 
+                </p>
+                <p class="change_link">  
+                    Есть логин?
+                    <a href="{% url 'auth:login' %}" class="to_register">Войти</a>
+                    <a href="{% url 'mainapp:home' %}" class="to_main">Отмена</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% if register_form.errors %}
+    <div class="errorlist_block">
+        {{ register_form.errors|escape }}
+    </div>
+{% endif %}
+{% endblock %}
