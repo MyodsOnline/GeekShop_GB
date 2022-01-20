@@ -3,9 +3,9 @@
 Training project on creating an online store on the Django framework  
 ### To use project your environment pip list must contains:  
 Django==3.2.9.   
-Pillow==8.4.0.
-django-environ==0.8.1
-requests==2.27.1
+Pillow==8.4.0.    
+django-environ==0.8.1   
+requests==2.27.1   
 social-auth-app-django==5.0.0
 
 You can install it from requirements.txt using: pip install requirements.txt. 
