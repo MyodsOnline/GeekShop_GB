@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'authapp',
     'basketapp',
     'adminapp',
+    'ordersapp',
 
     'social_django',
 ]
@@ -163,9 +164,6 @@ EMAIL_USE_SSL = False
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_FILE_PATH = 'tmp/emails'
-
-# 6k8Sl5w0MOyNKzhTqyom
-# 8054227
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
