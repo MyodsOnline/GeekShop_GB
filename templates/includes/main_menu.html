@@ -5,25 +5,44 @@
         <li><a href="{% url 'products:products' %}">продукты</a></li>
         <li class="dissapeared"><a href="{% url 'mainapp:contacts' %}">контакты</a></li>
         {% if user.is_authenticated %}
-        <li>
-            <a  class="user" href="{% url 'auth:edit' %}">
-                {% if user.first_name %}
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                    {{ user.first_name }}
-                {% else %}
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                    {{ user.username }}
-                {% endif %}
-            </a>
-        </li>
-        {% endif %}
-        {% if user.is_superuser %}
-        <li>
-            <a  class="user" href="{% url 'admin_staff:products_list' %}">
-                <i class="fa fa-gears" aria-hidden="true"></i>
-                Админка
-            </a>
-        </li>
+            {% if user.is_superuser %}
+            <li class="Sdropdown">
+                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Администрирование</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a  class="user dropdown-item" href="{% url 'auth:edit' %}">
+                            {% if user.first_name %}
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                {{ user.first_name }}
+                            {% else %}
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                {{ user.username }}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="user dropdown-item" href="{% url 'admin_staff:products_list' %}">
+                            <i class="fa fa-gears" aria-hidden="true"></i>
+                            Админка
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li>
+                <a  class="user" href="{% url 'auth:edit' %}">
+                    {% if user.first_name %}
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        {{ user.first_name }}
+                    {% else %}
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        {{ user.username }}
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
         {% endif %}
         {% if user.is_authenticated %}
         <li>
