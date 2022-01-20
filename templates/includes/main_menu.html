@@ -7,7 +7,10 @@
         {% if user.is_authenticated %}
             {% if user.is_superuser %}
             <li class="Sdropdown">
-                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Администрирование</a>
+                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                    <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+                    Администрирование
+                </a>
                 <ul class="dropdown-menu">
                     <li>
                         <a  class="user dropdown-item" href="{% url 'auth:edit' %}">
