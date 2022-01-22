@@ -27,6 +27,13 @@ td:first-child{
     padding: 2px 4px;
     text-decoration: none;
 }
+.basket_edit{
+    border: 1px solid darkgreen;
+    color: darkgreen;
+    cursor: pointer;
+    padding: 0px 4px 4px;
+    text-decoration: none;
+}
 .item:hover{
     background: lightgray;
 }
