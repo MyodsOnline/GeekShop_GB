@@ -17,8 +17,8 @@
 
 {% block content %}
 	<div class="basket_container">
-		<h2>Ваша корзина, {{ user.username }}</h2>
-        <table class="basket_table">
+		<h2 class="mt-3">Ваша корзина, {{ user.username }}</h2>
+        <table class="basket_table table">
             <thead>
                 <tr class="bcg">
                     <th class="text-center">ID</th>
@@ -60,11 +60,9 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button class="btn btn-default btn-round">
-            <a href="{% url 'ordersapp:order_create' %}">
-                новый
-            </a>
-        </button>
+        <div class="d-grid gap-2 col-6 mx-auto my-3">
+            <a class="btn btn-outline-dark" href="{% url 'ordersapp:order_create' %}" role="button">Новый заказ</a>
+        </div>
 	</div>
 {% endblock %}
 {% block script %}

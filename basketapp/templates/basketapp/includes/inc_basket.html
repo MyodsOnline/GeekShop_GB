@@ -23,6 +23,10 @@
 		<td>Итого:</td>
 		<td>{{ basket_items.0.total_quantity }}</td>
 		<td>{{ basket_items.0.total_cost }} ₽</td>
-		<td></td>
+		<td>
+			<a href="{% url 'ordersapp:order_create' %}" class="basket_edit">
+                Оформить
+            </a>
+		</td>
 	</tr>
 </table>
