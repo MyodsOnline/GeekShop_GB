@@ -23,7 +23,11 @@
                     {{ login_form.password }}
                 </p>
                 <p class="login button"> 
-                    <input type="submit" value="Войти" /> 
+                    <input type="submit" value="Войти" />
+                </p>
+                <p class="login button">
+                    Вход через социальную сеть:
+                    <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/" class="auth">VK</a>
                 </p>
                 <p class="change_link">
                     Не зарегистрированы ?
