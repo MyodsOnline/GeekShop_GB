@@ -1,0 +1,26 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block forms %}
+<div class="main_container">
+    <div id="wrapper">
+        <div id="login" class="animate form">
+            <h1>GeekShop</h1>
+            {% if user %}
+            <h3>Поздравляем!</h3>
+            <br>
+            <h4>Пользователь {{user.username}} подтвержден.</h4>
+            {% else %}
+            <h3>Верификация не пройдена.</h3>
+            {% endif %}
+            <br>
+            <p class="change_link">
+                <a href="{% url 'mainapp:home' %}" class="to_main">На главную</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
