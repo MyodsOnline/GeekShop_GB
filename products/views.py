@@ -4,6 +4,7 @@ import os
 import json
 from django.conf import settings
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 from products.models import ProductCategory, Product
 
@@ -97,6 +98,7 @@ def get_same_products(hot_product):
         return same_products
 
 
+@cache_page(3600)
 def products(request, pk=None):
     title = 'Products'
     links_menu = get_links_menu()
