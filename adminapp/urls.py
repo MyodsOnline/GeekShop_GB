@@ -2,6 +2,8 @@ from django.urls import path
 import adminapp.views as adminapp
 from adminapp.views import UserListView, UserCreateView, UserUpdateView, UserDeleteView,\
     ProductsListView, CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
+from django.views.decorators.cache import cache_page
+
 
 app_name = 'adminapp'
 
@@ -16,7 +18,7 @@ urlpatterns = [
     path('categories/update/<int:pk>/', CategoryUpdateView.as_view(), name='category_update'),
     path('categories/delete/<int:pk>/', CategoryDeleteView.as_view(), name='category_delete'),
 
-    path('products/read/', ProductsListView.as_view(), name='products_list'),
+    path('products/read/', cache_page(3600)(ProductsListView.as_view()), name='products_list'),
     path('products/read/page/<int:page>/', ProductsListView.as_view(), name='page'),
     path('products/create/category/<int:pk>/', adminapp.product_create, name='product_create'),
     path('products/read/category/<int:pk>/', adminapp.products, name='products'),
