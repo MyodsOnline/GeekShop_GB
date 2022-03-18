@@ -12,7 +12,7 @@ from products.models import Product
 @login_required
 def basket(request):
     title = f'Корзина {request.user.username}'
-    basket_items = Basket.objects.filter(user=request.user).order_by('product__category')
+    basket_items = Basket.objects.filter(user=request.user).order_by('product__category').select_related()
     sample_list = random.sample([x for x in range(1, len(Product.objects.all())+1)], 4)
     sample_products = []
     for i in sample_list:

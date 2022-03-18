@@ -22,6 +22,10 @@ class Basket(models.Model):
     def __str__(self):
         return f'Корзина - {self.user.username} | {self.product.name}'
 
+    @staticmethod
+    def get_item(pk):
+        return Basket.objects.filter(pk=pk).first()
+
     @property
     def product_cost(self):
         return self.product.price * self.quantity
